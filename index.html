@@ -1,0 +1,22 @@
+---
+layout: default
+title: Jack Dempsey
+---
+
+<div id="home">
+  <h1>Blog Posts</h1>
+  <ul class="posts">
+    {% for post in site.posts %}
+      <li><span>{{ post.date | date_to_string }}</span> &raquo; <a href="{{ post.url }}">{{ post.title }}</a></li>
+    {% endfor %}
+  </ul>
+  
+  <h1>Some Open Source Projects</h1>
+  <ul class="posts">
+    <li><a href="http://jackdempsey.github.com/beet/">Beet:</a> Easily mixable recipes for Ruby and Rails.</li>
+    <li><a href="http://github.com/jackdempsey/writeme/">Writeme:</a> A tool to generate Writeme Spec READMEs.</li>
+    <li><a href="http://github.com/jackdempsey/interested_people">Interested People:</a> Rails 3 mailing/interested list engine.</li>
+    <li><a href="http://github.com/jackdempsey/spy/">Spy:</a> Rails 3 engine for easily switching user identities.</li>
+  </ul>
+</div>
+  
