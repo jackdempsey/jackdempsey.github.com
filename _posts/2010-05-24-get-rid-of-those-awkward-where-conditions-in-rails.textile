@@ -4,6 +4,9 @@ layout: post
 title: get rid of those awkward where conditions in Rails
 wordpress_url: http://jackdempsey.me/?p=17
 ---
+
+h1. {{ page.title }}
+
 We originally developed <a href="http://euraeka.com">http://euraeka.com</a> in <a href="http://merbivore.com/">Merb</a>, <a href="http://sequel.rubyforge.org/documentation.html">Sequel</a>, and some other great Ruby tech. Recently though with <a href="http://weblog.rubyonrails.org/2010/4/13/rails-3-0-third-beta-release">Rails 3</a> on the horizon I've converted the stack and really like the end result. One thing I've missed though is the ease of generating queries with Sequel--it just felt very 'Rubyish' and my first guess was often correct: want all items with a price under 50?
 
 {% highlight ruby %}

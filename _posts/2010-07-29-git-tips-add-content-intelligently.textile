@@ -4,6 +4,9 @@ layout: post
 title: "Git tips: add content intelligently"
 wordpress_url: http://jackdempsey.me/?p=111
 ---
+
+h1. {{ page.title }}
+
 <em>This is one of several posts designed for those of you who've migrated from svn to git, but find your workflow and patterns to be very 'svn like'.</em> 
 
 This borders a bit more on the "being a good programmer" side of things, than something you have to do for technological reasons, but I believe in it and think you should too.

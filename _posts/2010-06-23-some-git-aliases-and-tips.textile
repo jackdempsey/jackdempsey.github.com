@@ -4,6 +4,9 @@ layout: post
 title: Some git aliases and tips
 wordpress_url: http://jackdempsey.me/?p=27
 ---
+
+h1. {{ page.title }}
+
 In preparation for a <a href="http://www.meetup.com/dcruby/calendar/13484724/">talk I gave</a> at DC RUG, I combed over my various git related customizations and realized a few might be worth mentioning here. 
 
 When I first started with git I was so focused on learning the tech, I didn't do much to make my life easier, and I realize now that was a mistake. So without further ado, here are some aliases I use frequently:

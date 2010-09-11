@@ -4,6 +4,9 @@ layout: post
 title: "Git tips: when branches diverge"
 wordpress_url: http://jackdempsey.me/?p=81
 ---
+
+h1. {{ page.title }}
+
 While committing to an app from a couple different computers, my repos got out of sync:
 
 {% highlight bash %}

@@ -4,6 +4,9 @@ layout: post
 title: Easily run the same code across multiple IRB/console sessions
 wordpress_url: http://jackdempsey.me/?p=42
 ---
+
+h1. {{ page.title }}
+
 Ever get tired of typing the same commands each time you load up a Rails console? Or, scrolling through your history til you find that one command and then doing it again for the one after it, etc, etc? 
 
 I did. So, I wrote the shortest hack that could work. 

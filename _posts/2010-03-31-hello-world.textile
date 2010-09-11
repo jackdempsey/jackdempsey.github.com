@@ -4,6 +4,9 @@ layout: post
 title: "Rails 3: Generators"
 wordpress_url: http://jackdempsey.me/blog/?p=1
 ---
+
+h1. {{ page.title }}
+
 I've been working on a variety of new ideas and projects recently, and find myself doing a lot of generating: models, scaffolds, migrations, and so on. After about the 10th "generate a scaffold and delete all of the dirs/files I don't want" I decided there must be a better way.
 
 I've been a fan of <a href="http://github.com/wycats/thor">Thor</a> since the early days, and knew <a href="http://github.com/josevalim">Jose Valim</a> had been busy working away on some cool new tech. So, without further ado, here's a sneak peek at what's in store for you in Rails 3.

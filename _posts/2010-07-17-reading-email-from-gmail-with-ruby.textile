@@ -4,6 +4,9 @@ layout: post
 title: Reading email from Gmail with ruby
 wordpress_url: http://jackdempsey.me/?p=136
 ---
+
+h1. {{ page.title }}
+
 I'm working on a bit of code that needs to read emails from Gmail. So far I've made use of the fetcher library:
 
 http://github.com/look/fetcher

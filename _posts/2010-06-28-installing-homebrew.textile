@@ -4,6 +4,9 @@ layout: post
 title: Installing HomeBrew
 wordpress_url: http://jackdempsey.me/?p=35
 ---
+
+h1. {{ page.title }}
+
 I've heard many people smarter than I say how amazing HomeBrew is, getting almost religious about it. After seeing more and more "brew install project-i-want-to-experiment-with" I decided to give it a try today. 
 
 One problem: the permissions changes it makes seem to be incomplete at this time. Maybe this was a recent change, I'm not quite sure, but either way I figured out how to get things working. You can look at the report I filed <a href="http://github.com/mxcl/homebrew/issues/issue/1713">here</a> or just skip to the fix at the gist <a href="http://gist.github.com/456048">here</a>. 

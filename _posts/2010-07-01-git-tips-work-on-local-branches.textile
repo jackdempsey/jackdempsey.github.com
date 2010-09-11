@@ -4,6 +4,9 @@ layout: post
 title: "Git tips: work on local branches"
 wordpress_url: http://jackdempsey.me/?p=100
 ---
+
+h1. {{ page.title }}
+
 <em>This is one of several posts designed for those of you who've migrated from svn to git, but find your workflow and patterns to be very 'svn like'.</em> 
 
 There's basically no reason you shouldn't do your local work on a branch. If you have a small feature touching a couple files, just create a branch and do your work on it. Remember, this is git, you don't have to remember what revision you branched at when you merge back in later (ugh svn), it's fast as hell, and no one will ever see that you created it either!
