@@ -1,0 +1,57 @@
+--- 
+wordpress_id: 17
+layout: post
+title: get rid of those awkward where conditions in Rails
+wordpress_url: http://jackdempsey.me/?p=17
+---
+We originally developed <a href="http://euraeka.com">http://euraeka.com</a> in <a href="http://merbivore.com/">Merb</a>, <a href="http://sequel.rubyforge.org/documentation.html">Sequel</a>, and some other great Ruby tech. Recently though with <a href="http://weblog.rubyonrails.org/2010/4/13/rails-3-0-third-beta-release">Rails 3</a> on the horizon I've converted the stack and really like the end result. One thing I've missed though is the ease of generating queries with Sequel--it just felt very 'Rubyish' and my first guess was often correct: want all items with a price under 50?
+
+[ruby]
+items.filter(:price < 50)
+[/ruby]
+
+Items created within the last day?
+
+[ruby]
+items.filter(:created_at >= 1.day.ago)
+[/ruby]
+
+There was no :conditions hash to clutter things, no array of clauses and values, and no sql with some question marks interspersed throughout. 
+
+So today I take a look at the latest <a href="http://railscasts.com/">Railscast</a> and not only does <a href="http://twitter.com/rbates">Ryan</a> do a great job of showing some tips and tricks for queries in Rails 3, but he gives a mention to <a href="http://github.com/ernie/meta_where">meta_where</a>. At first I thought "looks nice but would I use it?" After looking into it a bit more, the answer is easily "hell yes". 
+
+Let's look at some code. The old way:
+
+[ruby]
+scope :day_old, where(["fetch_date > ?", (Time.now - 1.day).to_i])
+[/ruby]
+
+New way:
+
+[ruby]
+scope :day_old, where(:fetch_date.gt => 1.day.ago)
+# or even
+scope :day_old, where(:fetch_date >= 1.day.ago)
+[/ruby]
+
+That's about as clean and easy to write and then read later as you can get. 
+
+More examples:
+
+[ruby]
+# old
+articles.where(["id not in (?)", article_ids])
+
+#new
+articles.where(:id - article_ids)
+[/ruby]
+
+For those not wishing to use overloaded operators, you can still get a benefit from meta_where
+
+[ruby]
+articles.where(:id.not_in => article_ids)
+[/ruby]
+
+You can read more about other options at the <a href="http://metautonomo.us/projects/metawhere/">project's home page</a>. 
+
+This post barely scratches the surface of what's possible, but hopefully it will peak some interest and get more eyeballs on a project that could be of great use to many of us. Also, a big thanks to <a href="http://twitter.com/erniemiller">@erniemiller</a> for answering some questions today related to edge changes to meta_where, arel, and rails. Tip: the latest features might need edge versions of all three to work, so you might want to let them progress a bit more before jumping fully in and using everything available. 

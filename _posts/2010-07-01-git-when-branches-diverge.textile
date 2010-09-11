@@ -1,0 +1,170 @@
+--- 
+wordpress_id: 81
+layout: post
+title: "Git tips: when branches diverge"
+wordpress_url: http://jackdempsey.me/?p=81
+---
+While committing to an app from a couple different computers, my repos got out of sync:
+
+[bash]
+~/example_app ads > gco master
+Switched to branch 'master'
+Your branch and 'origin/master' have diverged,
+and have 2 and 7 different commit(s) each, respectively.
+[/bash]
+
+So, to figure out what this means, here are a couple tips. First, you can use the cherry command to 
+see what commits differ between branches, and in what ways. So in this case, running 'g cherry origin/master' shows us the status of commits on the 
+current branch and how they stack up against origin/master. So:
+
+[bash]
+~/example_app master > g cherry origin/master
++ 7584c09a5c0ea68c29f4724788e9f38b119cd6ec
++ f3a766e6dd7c08be07c6300b005af2674a96e74c
+[/bash]
+
+That mean's that those two commits don't exist on origin/master, they need to be added (hence the +). This explains the "2" part of 
+the "2 and 7 different commits" message we saw.
+
+Now, let's see what's going on with origin/master and its commits. For this we can run a log command with a special format:
+
+[bash]
+~/example_app master > gl ..origin/master --oneline
+7d6b4b8 fix staging db config
+4d96719 Adding links to the bottom of all pages and cleaning up active tab text colors for all themes except for 4 and 1
+66e69ea Merge branch 'master' of github.com:example_appwedding/example_app into themes
+ec35a04 Hot fix
+95959fb Merge branch 'master' of github.com:example_appwedding/example_app into themes
+019d5dc committing fixes to haml update
+01095dc random
+[/bash]
+
+Here we see 7 commits there that don't exist on our current branch. 
+
+So now we have a good idea of what's happened. I've made two commits on my local master branch, and it looks like there are 7 commits on origin/master
+I don't have merged in yet. So, I could just blindly merge things together and go on my way (if they merge without conflict), but I'd like to show you
+how to deal with it in a more controlled manner.  
+
+First, create a branch that points to your current HEAD
+
+[bash]
+~/example_app master > gco -b local_changes
+Switched to a new branch 'local_changes'
+[/bash]
+
+Now that we have that to keep track of those changes, we switch back to master:
+
+[bash]
+~/example_app local_changes > gco master
+Switched to branch 'master'
+Your branch and 'origin/master' have diverged,
+and have 2 and 7 different commit(s) each, respectively.
+[/bash]
+
+At this point, reset the master branch to get rid of the 2 commits. To do this you want to go to the third commit back, or HEAD^^
+
+[bash]
+~/example_app master > g reset --hard HEAD^^
+HEAD is now at f2fe0d4 get satisfaction js update from alex
+[/bash]
+
+Now let's see what our status looks like
+
+[bash]
+~/example_app master > gst
+# On branch master
+# Your branch is behind 'origin/master' by 7 commits, and can be fast-forwarded.
+#
+nothing to commit (working directory clean)
+~/example_app master > 
+[/bash]
+
+There we go! We can now easily merge origin/master in and then handle merging in local_changes if it still makes sense. 
+
+
+This could easily be the end of this post. However, in the actual situation that prompted this point, things weren't quite this simple. 
+I actually had other branches that had already been rebased against master and it created a situation like this:
+
+[bash]
+<snip>
+ +    [delete_account] put in beginnings of delete account
+++* + [local_changes] don't show get tab in dev mode
+++* + [local_changes^] slot in same check for a blank field to remain blank
+++*++ [local_changes~2] js update 
+[/bash]
+
+So I had removed this changes from my master branch, but they still existed in other branches. Because I know they're contained
+in local_changes, I can remove them from the other branches (and those other branches haven't been pushed anywhere).
+
+I dug around a bit more and realized that those sames changes were already in another branch that HAD been pushed to origin. So, I can remove them from other branches that have them and haven't been pushed. 
+
+First I delete local_changes:
+
+[bash]
+~/example_app master> gb -D local_changes
+[/bash]
+
+I have more work to do. Those commits still exist in other branches:
+
+[bash]
+  *+ [master~5] random
+ +   [delete_account] put in beginnings of delete account
+++ + [ads~8] don't show get tab in dev mode
+++ + [ads~9] slot in same check for a blank field to remain blank
+++*+ [ads~10] js update
+[/bash]
+
+So I can check out the ads branch and remove those two commits:
+
+[bash]
+~/example_app master > gco ads
+Switched to branch 'ads'
+~/example_app ads > gri head~10
+Successfully rebased and updated refs/heads/ads.
+~/example_app ads > gsb
+[/bash]
+
+Explained:
+
+1. git checkout the ads branch
+3. git rebase -i head~10 -- This lets me interactively rewrite the history. If you delete a line in an interactive rebase, it's gone from your history
+(which is why it's really important to NOT do this if you've pushed that commit elsewhere). 
+At this point I removed those two commits and am good. 
+5. I did a quick git show-branch to see how everything looked. 
+
+
+I'll do the same thing with the delete_account branch, and now let's take a look at my repo:
+
+[bash]
+~/example_app ads > gsb
+* [ads] refactor left rail calls
+ ! [delete_account] put in beginnings of delete account
+  ! [master] fix staging db config
+   ! [theme_branch] add in colors
+----
+*    [ads~7] refactor left rail calls 
+ +   [delete_account] put in beginnings of delete account
+   + <snip>
+*+++ [master] fix staging db config
+[/bash]
+
+
+Everything's looking good. The various branches have only their important commits to differentiate them, nothing's confusing. I'm ready to go. 
+
+This may seem like a lot of work but in practice it's quick and very useful in my experience. I'm convinced part of the reason people get confused
+with git is that they don't take proper care of their repositories and branches. 
+
+Note: often you can just merge things and git will do a lot of the heavy lifting and thinking for you. But if you only ever just merge blindly, you're going to confuse yourself, your commit history, and not really know what's going on. It's often worth spending a little bit of time to think about what you're doing. This sort of exercise should also help you deal with situations where a simple merge will not suffice. 
+
+
+Aliases:
+I like to alias everything. I think it's worth seeing how other's alias things--you might pick up a good tip or two. However, I don't expect people to know my own aliases, so here's a little key. 
+
+If it turns out people would much rather see the full commands typed out, I can do that as well, just let me know. 
+
+g = git
+gco = git checkout
+gl = git log
+gst = git status
+gb = git branch
+gri = git rebase -i

@@ -1,0 +1,45 @@
+--- 
+wordpress_id: 42
+layout: post
+title: Easily run the same code across multiple IRB/console sessions
+wordpress_url: http://jackdempsey.me/?p=42
+---
+Ever get tired of typing the same commands each time you load up a Rails console? Or, scrolling through your history til you find that one command and then doing it again for the one after it, etc, etc? 
+
+I did. So, I wrote the shortest hack that could work. 
+
+<script src="http://gist.github.com/456688.js"></script>
+
+Drop that in your .irbrc file and you're good to go. Here's how to use it:
+
+[ruby]
+
+projects/euraeka master ? > src
+Loading development environment (Rails 3.0.0.beta3)
+ree-1.8.7-2010.01 > rem "a = Article.last"
+ => nil 
+ree-1.8.7-2010.01 > exit
+projects/euraeka master ? > src
+Loading development environment (Rails 3.0.0.beta3)
+ree-1.8.7-2010.01 > eval rem
+ => #<Article id: 8999482, title: "Animal ID scheme pushed despite FedFarm scepticism", url: "http://computerworld.co.nz/news.nsf/news/animal-id-..."> 
+ree-1.8.7-2010.01 > exit
+projects/euraeka master ? > cat ~/.remembered_commands 
+a = Article.last
+projects/euraeka master ? > src
+Loading development environment (Rails 3.0.0.beta3)
+ree-1.8.7-2010.01 > rem :clear
+ => 1 
+ree-1.8.7-2010.01 > exit
+projects/euraeka master ? > cat ~/.remembered_commands
+cat: /Users/jack/.remembered_commands: No such file or directory
+projects/euraeka master ? > 
+[/ruby]
+
+Notes: 
+src == script/rails console. I like to alias everything. 
+? == you have some stuff in git you need to push. Really useful. More on git <a href="http://jackdempsey.me/?p=27">here</a>
+
+This is the simplest thing that could work. Feel free to fork it in Gist and improve on it. It's ugly as is, but at least it's solved an annoyance for me. 
+
+<b>Update</b>: I realized after running it a bit that the scoping was incorrect and whatever local vars you might eval inside rem wouldn't be accessible to you in IRB. For now just run the 'eval rem' as I've changed it to be above. 

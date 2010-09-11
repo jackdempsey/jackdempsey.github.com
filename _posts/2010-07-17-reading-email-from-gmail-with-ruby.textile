@@ -1,0 +1,23 @@
+--- 
+wordpress_id: 136
+layout: post
+title: Reading email from Gmail with ruby
+wordpress_url: http://jackdempsey.me/?p=136
+---
+I'm working on a bit of code that needs to read emails from Gmail. So far I've made use of the fetcher library:
+
+http://github.com/look/fetcher
+
+and have it configured to have an ActionMailer subclass receive the email for processing. 
+
+One thing I've found useful so far, and that wasn't obvious at first, is a way to stop the emails from being marked as read. Take a look at the gist below
+
+<script src="http://gist.github.com/479836.js"> </script>
+
+Now, instead of going back to the account, marking the emails as unread and moving them back to the inbox, I get the info and the email stays right where it is. 
+
+HTH
+
+<strong>Update</strong>
+
+In doing a bit more searching I've come across the incredibly useful ruby-gmail library: <a href="http://github.com/dcparker/ruby-gmail">http://github.com/dcparker/ruby-gmail</a> If you're doing anything with ruby and Gmail, you have to look up this plugin. 

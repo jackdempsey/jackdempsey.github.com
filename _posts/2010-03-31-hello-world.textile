@@ -1,0 +1,31 @@
+--- 
+wordpress_id: 1
+layout: post
+title: "Rails 3: Generators"
+wordpress_url: http://jackdempsey.me/blog/?p=1
+---
+I've been working on a variety of new ideas and projects recently, and find myself doing a lot of generating: models, scaffolds, migrations, and so on. After about the 10th "generate a scaffold and delete all of the dirs/files I don't want" I decided there must be a better way.
+
+I've been a fan of <a href="http://github.com/wycats/thor">Thor</a> since the early days, and knew <a href="http://github.com/josevalim">Jose Valim</a> had been busy working away on some cool new tech. So, without further ado, here's a sneak peek at what's in store for you in Rails 3.
+
+<strong>Overriding Templates</strong>
+
+I like using scaffolding to get quick ideas up and running. However, I've really grown tired of the xml pieces in the controller scaffold, and wanted an efficient way of not using them. With the generators in Rails 3 it's easy!
+
+<strong>Creating Your Own </strong>
+
+With the variety of choices we have when creating Rails 3 apps, there will definitely be situations where you'll want to automate some of those choices. For me, I want to use Haml for views
+
+<strong>Customizing the Application Config</strong>
+
+One new addition to Rails 3 that slipped past me til now is kind of hidden in config/application.rb:
+
+[ruby]
+    # Configure generators values. Many other options are available, be sure to check the documentation.
+    config.generators do |g|
+      g.template_engine :haml
+      g.layout false
+      g.test_framework nil
+      g.stylesheets false
+    end
+[/ruby]

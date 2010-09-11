@@ -4,7 +4,7 @@
  <title>Jack Dempsey</title>
  <link href="http://jackdempsey.me/atom.xml" rel="self"/>
  <link href="http://jackdempsey.me/"/>
- <updated>2010-09-11T01:31:12-04:00</updated>
+ <updated>2010-09-11T02:00:18-04:00</updated>
  <id>http://jackdempsey.me/</id>
  <author>
    <name>Jack Dempsey</name>
@@ -13,14 +13,441 @@
 
  
  <entry>
-   <title>First Post</title>
-   <link href="http://jackdempsey.me/2010/09/11/first-post.html"/>
-   <updated>2010-09-11T00:00:00-04:00</updated>
-   <id>http://jackdempsey.me/2010/09/11/first-post</id>
-   <content type="html">&lt;h1&gt;First Post&lt;/h1&gt;
-&lt;p class=&quot;meta&quot;&gt;11 Sep 2010 &amp;#8211; Rockville&lt;/p&gt;
-&lt;h2&gt;Moving to Jekyll&lt;/h2&gt;
-&lt;p&gt;If you&amp;#8217;re reading this, then I&amp;#8217;ve finally converted my WordPress blog over to Jekyll.&lt;/p&gt;</content>
+   <title>Git tips: add content intelligently</title>
+   <link href="http://jackdempsey.me/2010/07/29/git-tips-add-content-intelligently.html"/>
+   <updated>2010-07-29T00:00:00-04:00</updated>
+   <id>http://jackdempsey.me/2010/07/29/git-tips-add-content-intelligently</id>
+   <content type="html">&lt;p&gt;&lt;em&gt;This is one of several posts designed for those of you who&amp;#8217;ve migrated from svn to git, but find your workflow and patterns to be very &amp;#8216;svn like&amp;#8217;.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;This borders a bit more on the &amp;#8220;being a good programmer&amp;#8221; side of things, than something you have to do for technological reasons, but I believe in it and think you should too.&lt;/p&gt;
+&lt;p&gt;Back in &lt;span class=&quot;caps&quot;&gt;SVN&lt;/span&gt; land, what did you do when you&amp;#8217;ve got a bunch of uncommitted files littering your project and you remember something random that also needs fixing.&lt;/p&gt;
+&lt;p&gt;You open up that file and make the change.&lt;/p&gt;
+&lt;p&gt;Then you sit there. You realize can&amp;#8217;t commit that file because it has a change that shouldn&amp;#8217;t go out just yet. What do you do?&lt;/p&gt;
+&lt;p&gt;I&amp;#8217;ve seen (and done) any of the following:&lt;br /&gt;
+&lt;ul&gt;&lt;br /&gt;
+	&lt;li&gt;commit it anyway. Everything will be ok (except when it&amp;#8217;s not)&lt;/li&gt;&lt;br /&gt;
+	&lt;li&gt;keep it around until the feature you&amp;#8217;re working on is ready. You commit only to find someone else fixed it in a worse way, or maybe better way and got credit for it. But you thought of it first! Oh well, next time Gadget.&lt;/li&gt;&lt;br /&gt;
+	&lt;li&gt;copy that file to your desktop. Undo the changes and make just the change you care about and commit. Copy the file from the desktop back into place. This should feel embarassing. If this is how you need to get around this situation with your &lt;span class=&quot;caps&quot;&gt;VCS&lt;/span&gt;, it should be a sign that maybe you need something more powerful&lt;/li&gt;&lt;/p&gt;
+&lt;/ul&gt;
+&lt;p&gt;For this situation the git answer is: git add -p&lt;/p&gt;
+&lt;p&gt;From the man pages:&lt;br /&gt;
+[bash]&lt;br /&gt;
+-i, &amp;#8212;interactive&lt;br /&gt;
+Add modified contents in the working tree interactively to the&lt;br /&gt;
+index. Optional path arguments may be supplied to limit operation&lt;br /&gt;
+to a subset of the working tree. See &amp;#8220;Interactive mode&amp;#8221; for&lt;br /&gt;
+details.&lt;/p&gt;
+&lt;p&gt;-p, &amp;#8212;patch&lt;br /&gt;
+Interactively choose hunks of patch between the index and the work&lt;br /&gt;
+tree and add them to the index. This gives the user a chance to&lt;br /&gt;
+review the difference before adding modified contents to the index.&lt;/p&gt;
+&lt;p&gt;This effectively runs add &amp;#8212;interactive, but bypasses the initial&lt;br /&gt;
+command menu and directly jumps to the patch subcommand. See&lt;br /&gt;
+&amp;#8220;Interactive mode&amp;#8221; for details.&lt;br /&gt;
+[/bash]&lt;/p&gt;
+&lt;p&gt;I had used git for a many months before I heard about interactive add. It&amp;#8217;s really a wonderful option for those who care about keeping their commits to logical groupings of related content. What it means in practice is this: let&amp;#8217;s say you have a situation like so:&lt;/p&gt;
+&lt;p&gt;[bash]&lt;br /&gt;
+diff &lt;del&gt;-git a/file1 b/file1&lt;br /&gt;
+index 8124a24..467954e 100644&lt;br /&gt;
+-&lt;/del&gt;- a/file1&lt;br /&gt;
+&lt;ins&gt;+&lt;/ins&gt; b/file1&lt;br /&gt;
+&lt;code&gt;@ -1,3 +1,4 @&lt;/code&gt;&lt;br /&gt;
++a new first line&lt;br /&gt;
+some lines of content here&lt;/p&gt;
+&lt;p&gt;and some here&lt;br /&gt;
+&lt;code&gt;@ -6,3 +7,4 @&lt;/code&gt; and some here&lt;br /&gt;
+more again here&lt;/p&gt;
+&lt;p&gt;and here&lt;br /&gt;
++and a new last line&lt;br /&gt;
+[/bash]&lt;/p&gt;
+&lt;p&gt;One file, two changes. The first really needs to be added along with some other changes, while that last line change is something you need for the future, but have already done now so you don&amp;#8217;t forget. What do you do?&lt;/p&gt;
+&lt;p&gt;[bash]&lt;br /&gt;
+~/git_svn_post new_feature &amp;gt; gap&lt;br /&gt;
+diff &lt;del&gt;-git a/file1 b/file1&lt;br /&gt;
+index 8124a24..467954e 100644&lt;br /&gt;
+-&lt;/del&gt;- a/file1&lt;br /&gt;
+&lt;ins&gt;+&lt;/ins&gt; b/file1&lt;br /&gt;
+&lt;code&gt;@ -1,3 +1,4 @&lt;/code&gt;&lt;br /&gt;
++a new first line&lt;br /&gt;
+some lines of content here&lt;/p&gt;
+&lt;p&gt;and some here&lt;br /&gt;
+Stage this hunk [y,n,q,a,d,/,j,J,g,e,?]?&lt;br /&gt;
+[/bash]&lt;/p&gt;
+&lt;p&gt;gap, as you could probably guess, is my alias for git add -p.&lt;/p&gt;
+&lt;p&gt;So, you&amp;#8217;ll see some options &amp;#8220;Stage this hunk&amp;#8230;&amp;#8221;&lt;/p&gt;
+&lt;p&gt;You can now say &amp;#8220;yes, I would like to add this to the staging area&amp;#8221; by hitting y.&lt;br /&gt;
+[bash]&lt;br /&gt;
+Stage this hunk [y,n,q,a,d,/,j,J,g,e,?]? y&lt;br /&gt;
+&lt;code&gt;@ -6,3 +7,4 @&lt;/code&gt; and some here&lt;br /&gt;
+more again here&lt;/p&gt;
+&lt;p&gt;and here&lt;br /&gt;
++and a new last line&lt;br /&gt;
+Stage this hunk [y,n,q,a,d,/,K,g,e,?]?&lt;br /&gt;
+[/bash]&lt;br /&gt;
+and now you can say &amp;#8220;nope, not at this time&amp;#8221; by hitting n for this change. Take a look at your status now:&lt;/p&gt;
+&lt;p&gt;[bash]&lt;br /&gt;
+~/git_svn_post new_feature &amp;gt; gst&lt;/p&gt;
+&lt;ol&gt;
+	&lt;li&gt;On branch new_feature&lt;/li&gt;
+	&lt;li&gt;Changes to be committed:&lt;/li&gt;
+	&lt;li&gt;(use &amp;#8220;git reset &lt;span class=&quot;caps&quot;&gt;HEAD&lt;/span&gt; &amp;#8230;&amp;#8221; to unstage)&lt;br /&gt;
+#&lt;br /&gt;
+#	modified:   file1&lt;br /&gt;
+#&lt;/li&gt;
+	&lt;li&gt;Changed but not updated:&lt;/li&gt;
+	&lt;li&gt;(use &amp;#8220;git add &amp;#8230;&amp;#8221; to update what will be committed)&lt;/li&gt;
+	&lt;li&gt;(use &amp;#8220;git checkout &amp;#8212; &amp;#8230;&amp;#8221; to discard changes in working directory)&lt;br /&gt;
+#&lt;br /&gt;
+#	modified:   file1&lt;br /&gt;
+#&lt;br /&gt;
+~/git_svn_post new_feature &amp;gt;&lt;br /&gt;
+[/bash]&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;The first time you see the above you might be a bit confused, but it&amp;#8217;s straightforward: there are some changes in file1 that are to be committed (they&amp;#8217;re in the index) and there are some changes that are just local (remember, the last line fix).&lt;/p&gt;
+&lt;p&gt;This is how you add just a few pieces of a file and not others.&lt;/p&gt;
+&lt;p&gt;What if the changes are close to each other in the file? Then use s for split:&lt;/p&gt;
+&lt;p&gt;[bash]&lt;br /&gt;
+~/git_svn_post new_feature &amp;gt; gap&lt;br /&gt;
+diff &lt;del&gt;-git a/file1 b/file1&lt;br /&gt;
+index 6360209..ec68580 100644&lt;br /&gt;
+-&lt;/del&gt;- a/file1&lt;br /&gt;
+&lt;ins&gt;+&lt;/ins&gt; b/file1&lt;br /&gt;
+&lt;code&gt;@ -7,8 +7,15 @&lt;/code&gt; some changes here&lt;br /&gt;
+and some here&lt;/p&gt;
+&lt;p&gt;-and more here&lt;br /&gt;
++more changes here&lt;br /&gt;
++&lt;br /&gt;
++and here&lt;br /&gt;
++&lt;/p&gt;
+&lt;p&gt;+and here&lt;br /&gt;
++&lt;br /&gt;
++and more here&lt;br /&gt;
++and here&lt;br /&gt;
+more again here&lt;/p&gt;
+&lt;p&gt;and here&lt;br /&gt;
+Stage this hunk [y,n,q,a,d,/,s,e,?]? s&lt;br /&gt;
+Split into 2 hunks.&lt;br /&gt;
+&lt;code&gt;@ -7,5 +7,8 @&lt;/code&gt;&lt;br /&gt;
+and some here&lt;/p&gt;
+&lt;p&gt;-and more here&lt;br /&gt;
++more changes here&lt;br /&gt;
++&lt;br /&gt;
++and here&lt;br /&gt;
++&lt;/p&gt;
+&lt;p&gt;Stage this hunk [y,n,q,a,d,/,j,J,g,e,?]?&lt;br /&gt;
+[/bash]&lt;/p&gt;
+&lt;p&gt;Sometimes you won&amp;#8217;t see the s when the change is several contiguous lines. In this case you can actually edit the diff to directly say what you want to get added. Bad ass. I&amp;#8217;ll go over this in a future post.&lt;/p&gt;
+&lt;h3&gt;Why you should add things in small increments&lt;/h3&gt;
+&lt;p&gt;There are several reasons:&lt;br /&gt;
+&lt;ol&gt;&lt;br /&gt;
+	&lt;li&gt;Code of a feather belongs together: if you always keep code that is part of the same feature together in the same commit, this will save you (and others) so much time after the fact. No more hunting across mulitple commits to truly understand a change. One patch file is enough to try out a new feature. A caveat applies here in that, if you have a large feature, it can make sense to have multiple commits. But often, in developing that feature, certain subcomponents come to mind: I might commit all the model related changes, and then controller updates, and then views. Or maybe I&amp;#8217;ll do them all at once. The point is to think intelligently about what you are doing.&lt;/li&gt;&lt;br /&gt;
+	&lt;li&gt;Having smaller more thought out commits also makes things like &lt;code&gt;git bisect&lt;/code&gt; much easier to use. Think of this as continuous deployment except for your commit files. When changes are small, incremental, and all go together, your life as a debugger later on is that much better.&lt;/li&gt;&lt;/p&gt;
+&lt;/ol&gt;
+&lt;p&gt;So, next time you have a bunch of changes spanning several features and you reach for &lt;code&gt;git commit -a&lt;/code&gt; take a second to think if they truly belong in the same commit.&lt;/p&gt;</content>
+ </entry>
+ 
+ <entry>
+   <title>Reading email from Gmail with ruby</title>
+   <link href="http://jackdempsey.me/2010/07/17/reading-email-from-gmail-with-ruby.html"/>
+   <updated>2010-07-17T00:00:00-04:00</updated>
+   <id>http://jackdempsey.me/2010/07/17/reading-email-from-gmail-with-ruby</id>
+   <content type="html">&lt;p&gt;I&amp;#8217;m working on a bit of code that needs to read emails from Gmail. So far I&amp;#8217;ve made use of the fetcher library:&lt;/p&gt;
+&lt;p&gt;http://github.com/look/fetcher&lt;/p&gt;
+&lt;p&gt;and have it configured to have an ActionMailer subclass receive the email for processing.&lt;/p&gt;
+&lt;p&gt;One thing I&amp;#8217;ve found useful so far, and that wasn&amp;#8217;t obvious at first, is a way to stop the emails from being marked as read. Take a look at the gist below&lt;/p&gt;
+&lt;script src=&quot;http://gist.github.com/479836.js&quot;&gt; &lt;/script&gt;&lt;p&gt;Now, instead of going back to the account, marking the emails as unread and moving them back to the inbox, I get the info and the email stays right where it is.&lt;/p&gt;
+&lt;p&gt;&lt;span class=&quot;caps&quot;&gt;HTH&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Update&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;In doing a bit more searching I&amp;#8217;ve come across the incredibly useful ruby-gmail library: &lt;a href=&quot;http://github.com/dcparker/ruby-gmail&quot;&gt;http://github.com/dcparker/ruby-gmail&lt;/a&gt; If you&amp;#8217;re doing anything with ruby and Gmail, you have to look up this plugin.&lt;/p&gt;</content>
+ </entry>
+ 
+ <entry>
+   <title>Git tips: when branches diverge</title>
+   <link href="http://jackdempsey.me/2010/07/01/git-when-branches-diverge.html"/>
+   <updated>2010-07-01T00:00:00-04:00</updated>
+   <id>http://jackdempsey.me/2010/07/01/git-when-branches-diverge</id>
+   <content type="html">&lt;p&gt;While committing to an app from a couple different computers, my repos got out of sync:&lt;/p&gt;
+&lt;p&gt;[bash]&lt;br /&gt;
+~/example_app ads &amp;gt; gco master&lt;br /&gt;
+Switched to branch &amp;#8216;master&amp;#8217;&lt;br /&gt;
+Your branch and &amp;#8216;origin/master&amp;#8217; have diverged,&lt;br /&gt;
+and have 2 and 7 different commit(s) each, respectively.&lt;br /&gt;
+[/bash]&lt;/p&gt;
+&lt;p&gt;So, to figure out what this means, here are a couple tips. First, you can use the cherry command to &lt;br /&gt;
+see what commits differ between branches, and in what ways. So in this case, running &amp;#8216;g cherry origin/master&amp;#8217; shows us the status of commits on the &lt;br /&gt;
+current branch and how they stack up against origin/master. So:&lt;/p&gt;
+&lt;p&gt;[bash]&lt;br /&gt;
+~/example_app master &amp;gt; g cherry origin/master&lt;br /&gt;
++ 7584c09a5c0ea68c29f4724788e9f38b119cd6ec&lt;br /&gt;
++ f3a766e6dd7c08be07c6300b005af2674a96e74c&lt;br /&gt;
+[/bash]&lt;/p&gt;
+&lt;p&gt;That mean&amp;#8217;s that those two commits don&amp;#8217;t exist on origin/master, they need to be added (hence the +). This explains the &amp;#8220;2&amp;#8221; part of &lt;br /&gt;
+the &amp;#8220;2 and 7 different commits&amp;#8221; message we saw.&lt;/p&gt;
+&lt;p&gt;Now, let&amp;#8217;s see what&amp;#8217;s going on with origin/master and its commits. For this we can run a log command with a special format:&lt;/p&gt;
+&lt;p&gt;[bash]&lt;br /&gt;
+~/example_app master &amp;gt; gl ..origin/master &amp;#8212;oneline&lt;br /&gt;
+7d6b4b8 fix staging db config&lt;br /&gt;
+4d96719 Adding links to the bottom of all pages and cleaning up active tab text colors for all themes except for 4 and 1&lt;br /&gt;
+66e69ea Merge branch &amp;#8216;master&amp;#8217; of github.com:example_appwedding/example_app into themes&lt;br /&gt;
+ec35a04 Hot fix&lt;br /&gt;
+95959fb Merge branch &amp;#8216;master&amp;#8217; of github.com:example_appwedding/example_app into themes&lt;br /&gt;
+019d5dc committing fixes to haml update&lt;br /&gt;
+01095dc random&lt;br /&gt;
+[/bash]&lt;/p&gt;
+&lt;p&gt;Here we see 7 commits there that don&amp;#8217;t exist on our current branch.&lt;/p&gt;
+&lt;p&gt;So now we have a good idea of what&amp;#8217;s happened. I&amp;#8217;ve made two commits on my local master branch, and it looks like there are 7 commits on origin/master&lt;br /&gt;
+I don&amp;#8217;t have merged in yet. So, I could just blindly merge things together and go on my way (if they merge without conflict), but I&amp;#8217;d like to show you&lt;br /&gt;
+how to deal with it in a more controlled manner.&lt;/p&gt;
+&lt;p&gt;First, create a branch that points to your current &lt;span class=&quot;caps&quot;&gt;HEAD&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;[bash]&lt;br /&gt;
+~/example_app master &amp;gt; gco -b local_changes&lt;br /&gt;
+Switched to a new branch &amp;#8216;local_changes&amp;#8217;&lt;br /&gt;
+[/bash]&lt;/p&gt;
+&lt;p&gt;Now that we have that to keep track of those changes, we switch back to master:&lt;/p&gt;
+&lt;p&gt;[bash]&lt;br /&gt;
+~/example_app local_changes &amp;gt; gco master&lt;br /&gt;
+Switched to branch &amp;#8216;master&amp;#8217;&lt;br /&gt;
+Your branch and &amp;#8216;origin/master&amp;#8217; have diverged,&lt;br /&gt;
+and have 2 and 7 different commit(s) each, respectively.&lt;br /&gt;
+[/bash]&lt;/p&gt;
+&lt;p&gt;At this point, reset the master branch to get rid of the 2 commits. To do this you want to go to the third commit back, or &lt;span class=&quot;caps&quot;&gt;HEAD&lt;/span&gt;^^&lt;/p&gt;
+&lt;p&gt;[bash]&lt;br /&gt;
+~/example_app master &amp;gt; g reset &amp;#8212;hard &lt;span class=&quot;caps&quot;&gt;HEAD&lt;/span&gt;^^&lt;br /&gt;
+&lt;span class=&quot;caps&quot;&gt;HEAD&lt;/span&gt; is now at f2fe0d4 get satisfaction js update from alex&lt;br /&gt;
+[/bash]&lt;/p&gt;
+&lt;p&gt;Now let&amp;#8217;s see what our status looks like&lt;/p&gt;
+&lt;p&gt;[bash]&lt;br /&gt;
+~/example_app master &amp;gt; gst&lt;/p&gt;
+&lt;ol&gt;
+	&lt;li&gt;On branch master&lt;/li&gt;
+	&lt;li&gt;Your branch is behind &amp;#8216;origin/master&amp;#8217; by 7 commits, and can be fast-forwarded.&lt;br /&gt;
+#&lt;br /&gt;
+nothing to commit (working directory clean)&lt;br /&gt;
+~/example_app master &amp;gt; &lt;br /&gt;
+[/bash]&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;There we go! We can now easily merge origin/master in and then handle merging in local_changes if it still makes sense.&lt;/p&gt;
+&lt;p&gt;This could easily be the end of this post. However, in the actual situation that prompted this point, things weren&amp;#8217;t quite this simple. &lt;br /&gt;
+I actually had other branches that had already been rebased against master and it created a situation like this:&lt;/p&gt;
+&lt;p&gt;[bash]&lt;br /&gt;
+&lt;snip&gt;&lt;br /&gt;
+ +    [delete_account] put in beginnings of delete account&lt;br /&gt;
+&lt;ins&gt;+* + [local_changes] don&amp;#8217;t show get tab in dev mode&lt;br /&gt;
++&lt;/ins&gt;* + [local_changes^] slot in same check for a blank field to remain blank&lt;br /&gt;
+++*++ [local_changes~2] js update &lt;br /&gt;
+[/bash]&lt;/p&gt;
+&lt;p&gt;So I had removed this changes from my master branch, but they still existed in other branches. Because I know they&amp;#8217;re contained&lt;br /&gt;
+in local_changes, I can remove them from the other branches (and those other branches haven&amp;#8217;t been pushed anywhere).&lt;/p&gt;
+&lt;p&gt;I dug around a bit more and realized that those sames changes were already in another branch that &lt;span class=&quot;caps&quot;&gt;HAD&lt;/span&gt; been pushed to origin. So, I can remove them from other branches that have them and haven&amp;#8217;t been pushed.&lt;/p&gt;
+&lt;p&gt;First I delete local_changes:&lt;/p&gt;
+&lt;p&gt;[bash]&lt;br /&gt;
+~/example_app master&amp;gt; gb -D local_changes&lt;br /&gt;
+[/bash]&lt;/p&gt;
+&lt;p&gt;I have more work to do. Those commits still exist in other branches:&lt;/p&gt;
+&lt;p&gt;[bash]&lt;br /&gt;
+  &lt;strong&gt;+ [master~5] random&lt;br /&gt;
+ +   [delete_account] put in beginnings of delete account&lt;br /&gt;
+&lt;ins&gt;+ + [ads~8] don&amp;#8217;t show get tab in dev mode&lt;br /&gt;
++&lt;/ins&gt; + [ads~9] slot in same check for a blank field to remain blank&lt;br /&gt;
+++&lt;/strong&gt;+ [ads~10] js update&lt;br /&gt;
+[/bash]&lt;/p&gt;
+&lt;p&gt;So I can check out the ads branch and remove those two commits:&lt;/p&gt;
+&lt;p&gt;[bash]&lt;br /&gt;
+~/example_app master &amp;gt; gco ads&lt;br /&gt;
+Switched to branch &amp;#8216;ads&amp;#8217;&lt;br /&gt;
+~/example_app ads &amp;gt; gri head~10&lt;br /&gt;
+Successfully rebased and updated refs/heads/ads.&lt;br /&gt;
+~/example_app ads &amp;gt; gsb&lt;br /&gt;
+[/bash]&lt;/p&gt;
+&lt;p&gt;Explained:&lt;/p&gt;
+&lt;p&gt;1. git checkout the ads branch&lt;br /&gt;
+3. git rebase &lt;del&gt;i head~10 -&lt;/del&gt; This lets me interactively rewrite the history. If you delete a line in an interactive rebase, it&amp;#8217;s gone from your history&lt;br /&gt;
+(which is why it&amp;#8217;s really important to &lt;span class=&quot;caps&quot;&gt;NOT&lt;/span&gt; do this if you&amp;#8217;ve pushed that commit elsewhere). &lt;br /&gt;
+At this point I removed those two commits and am good. &lt;br /&gt;
+5. I did a quick git show-branch to see how everything looked.&lt;/p&gt;
+&lt;p&gt;I&amp;#8217;ll do the same thing with the delete_account branch, and now let&amp;#8217;s take a look at my repo:&lt;/p&gt;
+&lt;p&gt;[bash]&lt;br /&gt;
+~/example_app ads &amp;gt; gsb&lt;/p&gt;
+&lt;ul&gt;
+	&lt;li&gt;[ads] refactor left rail calls&lt;br /&gt;
+ ! [delete_account] put in beginnings of delete account&lt;br /&gt;
+  ! [master] fix staging db config&lt;br /&gt;
+   ! [theme_branch] add in colors&lt;br /&gt;
+&lt;del&gt;-&lt;/del&gt;-&lt;/li&gt;
+	&lt;li&gt;[ads~7] refactor left rail calls &lt;br /&gt;
+ +   [delete_account] put in beginnings of delete account&lt;br /&gt;
+   + &lt;snip&gt;&lt;br /&gt;
+*+++ [master] fix staging db config&lt;br /&gt;
+[/bash]&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Everything&amp;#8217;s looking good. The various branches have only their important commits to differentiate them, nothing&amp;#8217;s confusing. I&amp;#8217;m ready to go.&lt;/p&gt;
+&lt;p&gt;This may seem like a lot of work but in practice it&amp;#8217;s quick and very useful in my experience. I&amp;#8217;m convinced part of the reason people get confused&lt;br /&gt;
+with git is that they don&amp;#8217;t take proper care of their repositories and branches.&lt;/p&gt;
+&lt;p&gt;Note: often you can just merge things and git will do a lot of the heavy lifting and thinking for you. But if you only ever just merge blindly, you&amp;#8217;re going to confuse yourself, your commit history, and not really know what&amp;#8217;s going on. It&amp;#8217;s often worth spending a little bit of time to think about what you&amp;#8217;re doing. This sort of exercise should also help you deal with situations where a simple merge will not suffice.&lt;/p&gt;
+&lt;p&gt;Aliases:&lt;br /&gt;
+I like to alias everything. I think it&amp;#8217;s worth seeing how other&amp;#8217;s alias things&amp;#8212;you might pick up a good tip or two. However, I don&amp;#8217;t expect people to know my own aliases, so here&amp;#8217;s a little key.&lt;/p&gt;
+&lt;p&gt;If it turns out people would much rather see the full commands typed out, I can do that as well, just let me know.&lt;/p&gt;
+&lt;p&gt;g = git&lt;br /&gt;
+gco = git checkout&lt;br /&gt;
+gl = git log&lt;br /&gt;
+gst = git status&lt;br /&gt;
+gb = git branch&lt;br /&gt;
+gri = git rebase -i&lt;/p&gt;</content>
+ </entry>
+ 
+ <entry>
+   <title>Git tips: work on local branches</title>
+   <link href="http://jackdempsey.me/2010/07/01/git-tips-work-on-local-branches.html"/>
+   <updated>2010-07-01T00:00:00-04:00</updated>
+   <id>http://jackdempsey.me/2010/07/01/git-tips-work-on-local-branches</id>
+   <content type="html">&lt;p&gt;&lt;em&gt;This is one of several posts designed for those of you who&amp;#8217;ve migrated from svn to git, but find your workflow and patterns to be very &amp;#8216;svn like&amp;#8217;.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;There&amp;#8217;s basically no reason you shouldn&amp;#8217;t do your local work on a branch. If you have a small feature touching a couple files, just create a branch and do your work on it. Remember, this is git, you don&amp;#8217;t have to remember what revision you branched at when you merge back in later (ugh svn), it&amp;#8217;s fast as hell, and no one will ever see that you created it either!&lt;/p&gt;
+&lt;p&gt;Here&amp;#8217;s why this is important and useful. Let&amp;#8217;s say you&amp;#8217;re working on master. You&amp;#8217;ve made a few commits and you&amp;#8217;re getting ready to finish when someone says &amp;#8220;fix this quick and push it please&amp;#8221;. Ok, so you make that change and you&amp;#8217;re stuck: you&amp;#8217;re not ready to push your other commits, just this recent one. What do you do? (I can go over how to get out of this if anyone&amp;#8217;s curious). This wouldn&amp;#8217;t happen if you had just done your new feature on a local branch and then rebased against master. Easy.&lt;/p&gt;
+&lt;p&gt;How about something similar: you&amp;#8217;re doing your work on master, committing as you go, and then hear that an important fix has been pushed to origin and that you should bring it down. Well, you think, I can easily just git pull &amp;#8212;rebase right? Sure&amp;#8230;except what if you had another branch that you &lt;span class=&quot;caps&quot;&gt;HAD&lt;/span&gt; rebase against master in trying to keep things clean. Now you&amp;#8217;re in a bind: if you rebase master, the changes you brought into this other branch will mis-match: same content but different sha&amp;#8217;s, and you&amp;#8217;ll be stuck doing some sort of git cherry pick attempt at undoing things. Again, just because you didn&amp;#8217;t work on a local topic branch.&lt;/p&gt;
+&lt;p&gt;This is not to say that you can&amp;#8217;t work on master. If it&amp;#8217;s a one file fix, go ahead! But if you think you&amp;#8217;re going to be working on it for even a little, do yourself a favor and type &amp;#8220;git checkout -b practicing_good_habits&amp;#8221; and get to it.&lt;/p&gt;</content>
+ </entry>
+ 
+ <entry>
+   <title>Git tips: don't hold commits forever</title>
+   <link href="http://jackdempsey.me/2010/07/01/git-tips-dont-hold-commits-forever.html"/>
+   <updated>2010-07-01T00:00:00-04:00</updated>
+   <id>http://jackdempsey.me/2010/07/01/git-tips-dont-hold-commits-forever</id>
+   <content type="html">&lt;p&gt;&lt;em&gt;This is one of several posts designed for those of you who&amp;#8217;ve migrated from svn to git, but find your workflow and patterns to be very &amp;#8216;svn like&amp;#8217;.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;If you&amp;#8217;re coming from an &lt;span class=&quot;caps&quot;&gt;SVN&lt;/span&gt; background you&amp;#8217;re used to the &amp;#8216;push&amp;#8217; aspect of transferring your commits being done for you&amp;#8230;not so with git. What this creates sometimes is a situation where you&amp;#8217;ve happily committed again and again, and haven&amp;#8217;t shared this with anyone. So then finally you make a huge push of 2 days of work and shocker, there&amp;#8217;s a conflict. It&amp;#8217;s so much easier to just make sure you&amp;#8217;re keeping other&amp;#8217;s up to date and being a good git citizen by pushing every so often.&lt;/p&gt;
+&lt;p&gt;I&amp;#8217;ll generally push once a feature/topic is complete. Everyone working with me can count on that feature being ready to use, and if they have any issues we can catch it much earlier in the process. If it&amp;#8217;s going to be a branch that exists for a while, then I&amp;#8217;ll push that out when it&amp;#8217;s ready to first be viewed by others. Just be careful this doesn&amp;#8217;t lead to the original situation of you holding on to changes much longer than you should.&lt;/p&gt;</content>
+ </entry>
+ 
+ <entry>
+   <title>Easily run the same code across multiple IRB/console sessions</title>
+   <link href="http://jackdempsey.me/2010/06/29/easily-run-the-same-code-across-multiple-irbconsole-sessions.html"/>
+   <updated>2010-06-29T00:00:00-04:00</updated>
+   <id>http://jackdempsey.me/2010/06/29/easily-run-the-same-code-across-multiple-irbconsole-sessions</id>
+   <content type="html">&lt;p&gt;Ever get tired of typing the same commands each time you load up a Rails console? Or, scrolling through your history til you find that one command and then doing it again for the one after it, etc, etc?&lt;/p&gt;
+&lt;p&gt;I did. So, I wrote the shortest hack that could work.&lt;/p&gt;
+&lt;script src=&quot;http://gist.github.com/456688.js&quot;&gt;&lt;/script&gt;&lt;p&gt;Drop that in your .irbrc file and you&amp;#8217;re good to go. Here&amp;#8217;s how to use it:&lt;/p&gt;
+&lt;p&gt;[ruby]&lt;/p&gt;
+&lt;p&gt;projects/euraeka master ? &amp;gt; src&lt;br /&gt;
+Loading development environment (Rails 3.0.0.beta3)&lt;br /&gt;
+ree-1.8.7-2010.01 &amp;gt; rem &amp;#8220;a = Article.last&amp;#8221;&lt;br /&gt;
+ =&amp;gt; nil &lt;br /&gt;
+ree-1.8.7-2010.01 &amp;gt; exit&lt;br /&gt;
+projects/euraeka master ? &amp;gt; src&lt;br /&gt;
+Loading development environment (Rails 3.0.0.beta3)&lt;br /&gt;
+ree-1.8.7-2010.01 &amp;gt; eval rem&lt;br /&gt;
+ =&amp;gt; #&amp;lt;Article id: 8999482, title: &amp;#8220;Animal ID scheme pushed despite FedFarm scepticism&amp;#8221;, url: &amp;#8220;http://computerworld.co.nz/news.nsf/news/animal-id-&amp;#8230;&amp;#8221;&amp;gt; &lt;br /&gt;
+ree-1.8.7-2010.01 &amp;gt; exit&lt;br /&gt;
+projects/euraeka master ? &amp;gt; cat ~/.remembered_commands &lt;br /&gt;
+a = Article.last&lt;br /&gt;
+projects/euraeka master ? &amp;gt; src&lt;br /&gt;
+Loading development environment (Rails 3.0.0.beta3)&lt;br /&gt;
+ree-1.8.7-2010.01 &amp;gt; rem :clear&lt;br /&gt;
+ =&amp;gt; 1 &lt;br /&gt;
+ree-1.8.7-2010.01 &amp;gt; exit&lt;br /&gt;
+projects/euraeka master ? &amp;gt; cat ~/.remembered_commands&lt;br /&gt;
+cat: /Users/jack/.remembered_commands: No such file or directory&lt;br /&gt;
+projects/euraeka master ? &amp;gt; &lt;br /&gt;
+[/ruby]&lt;/p&gt;
+&lt;p&gt;Notes: &lt;br /&gt;
+src == script/rails console. I like to alias everything. &lt;br /&gt;
+? == you have some stuff in git you need to push. Really useful. More on git &lt;a href=&quot;http://jackdempsey.me/?p=27&quot;&gt;here&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;This is the simplest thing that could work. Feel free to fork it in Gist and improve on it. It&amp;#8217;s ugly as is, but at least it&amp;#8217;s solved an annoyance for me.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Update&lt;/b&gt;: I realized after running it a bit that the scoping was incorrect and whatever local vars you might eval inside rem wouldn&amp;#8217;t be accessible to you in &lt;span class=&quot;caps&quot;&gt;IRB&lt;/span&gt;. For now just run the &amp;#8216;eval rem&amp;#8217; as I&amp;#8217;ve changed it to be above.&lt;/p&gt;</content>
+ </entry>
+ 
+ <entry>
+   <title>Installing HomeBrew</title>
+   <link href="http://jackdempsey.me/2010/06/28/installing-homebrew.html"/>
+   <updated>2010-06-28T00:00:00-04:00</updated>
+   <id>http://jackdempsey.me/2010/06/28/installing-homebrew</id>
+   <content type="html">&lt;p&gt;I&amp;#8217;ve heard many people smarter than I say how amazing HomeBrew is, getting almost religious about it. After seeing more and more &amp;#8220;brew install project-i-want-to-experiment-with&amp;#8221; I decided to give it a try today.&lt;/p&gt;
+&lt;p&gt;One problem: the permissions changes it makes seem to be incomplete at this time. Maybe this was a recent change, I&amp;#8217;m not quite sure, but either way I figured out how to get things working. You can look at the report I filed &lt;a href=&quot;http://github.com/mxcl/homebrew/issues/issue/1713&quot;&gt;here&lt;/a&gt; or just skip to the fix at the gist &lt;a href=&quot;http://gist.github.com/456048&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;</content>
+ </entry>
+ 
+ <entry>
+   <title>Some git aliases and tips</title>
+   <link href="http://jackdempsey.me/2010/06/23/some-git-aliases-and-tips.html"/>
+   <updated>2010-06-23T00:00:00-04:00</updated>
+   <id>http://jackdempsey.me/2010/06/23/some-git-aliases-and-tips</id>
+   <content type="html">&lt;p&gt;In preparation for a &lt;a href=&quot;http://www.meetup.com/dcruby/calendar/13484724/&quot;&gt;talk I gave&lt;/a&gt; at DC &lt;span class=&quot;caps&quot;&gt;RUG&lt;/span&gt;, I combed over my various git related customizations and realized a few might be worth mentioning here.&lt;/p&gt;
+&lt;p&gt;When I first started with git I was so focused on learning the tech, I didn&amp;#8217;t do much to make my life easier, and I realize now that was a mistake. So without further ado, here are some aliases I use frequently:&lt;/p&gt;
+&lt;script src=&quot;http://gist.github.com/449478.js&quot;&gt;&lt;/script&gt;&lt;p&gt;I&amp;#8217;ve also included a script that I call out to from one of the aliases, so if you didn&amp;#8217;t know you could do that, check it out, it&amp;#8217;s pretty useful. Plus I just like telling my repo&amp;#8217;s to &lt;strong&gt;git onup&lt;/strong&gt;. I&amp;#8217;ll probably create a &amp;#8220;git toit&amp;#8221; command at some point.&lt;/p&gt;
+&lt;p&gt;Anyway, the &lt;strong&gt;onup&lt;/strong&gt; aliases uses the zsh script to take all local branches and rebase them against master. This saves a lot of typing if you have a few ideas floating around and continually make changes to master you need to bring into those branches.&lt;/p&gt;
+&lt;p&gt;I also use &lt;strong&gt;squish&lt;/strong&gt; and &lt;strong&gt;squeeze&lt;/strong&gt; a bit. The difference between the two is that &lt;strong&gt;squish&lt;/strong&gt; takes all changes and &amp;#8220;squishes&amp;#8221; them into the last commit with the same commit message. &lt;strong&gt;queeze&lt;/strong&gt; does the same, but only for content currently in the staging area. I find myself often making small/focused commits, and these are easy ways of slowly added related changes to those same commits quickly.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;save&lt;/strong&gt; is also useful: did you know that once you &lt;strong&gt;git stash&lt;/strong&gt; content, it&amp;#8217;s saved for you inside git, even if you lose it from your current working directory?&lt;/p&gt;
+&lt;p&gt;So, this is useful in this situation: you&amp;#8217;re working on a bunch of files and have to leave for a bit. Rather than making a temporary commit that you have to then reset later, you can just say &lt;strong&gt; git save&lt;/strong&gt; and it will stash then apply your content, leaving your working directory just as you wanted, but with the added protection that if somehow you say checkout a clean copy of the dir later, thereby deleting all of your hard work, you can still get it back. (I definitely did that once or twice, and that was the primary motivation behind this alias).&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;pop&lt;/strong&gt; is pretty self explanatory: don&amp;#8217;t like what the top commit does? pop it off and fix it up. Just remember: if you&amp;#8217;ve already pushed that commit and then you try to rewrite your history, you&amp;#8217;re going to create trouble for yourself and others.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;git wu&lt;/strong&gt; or &amp;#8220;git whatup&amp;#8221; as I mentally remember it is an easy way of seeing what changes you have on your master that aren&amp;#8217;t on origin, or in simpler terms, what commits have you not pushed yet.&lt;/p&gt;
+&lt;p&gt;I think those are the interesting ones. I&amp;#8217;ve cobbled these together from my own ideas and the ideas of others, so if you have any suggestions or some aliases you like using, please leave a note.&lt;/p&gt;</content>
+ </entry>
+ 
+ <entry>
+   <title>get rid of those awkward where conditions in Rails</title>
+   <link href="http://jackdempsey.me/2010/05/24/get-rid-of-those-awkward-where-conditions-in-rails.html"/>
+   <updated>2010-05-24T00:00:00-04:00</updated>
+   <id>http://jackdempsey.me/2010/05/24/get-rid-of-those-awkward-where-conditions-in-rails</id>
+   <content type="html">&lt;p&gt;We originally developed &lt;a href=&quot;http://euraeka.com&quot;&gt;http://euraeka.com&lt;/a&gt; in &lt;a href=&quot;http://merbivore.com/&quot;&gt;Merb&lt;/a&gt;, &lt;a href=&quot;http://sequel.rubyforge.org/documentation.html&quot;&gt;Sequel&lt;/a&gt;, and some other great Ruby tech. Recently though with &lt;a href=&quot;http://weblog.rubyonrails.org/2010/4/13/rails-3-0-third-beta-release&quot;&gt;Rails 3&lt;/a&gt; on the horizon I&amp;#8217;ve converted the stack and really like the end result. One thing I&amp;#8217;ve missed though is the ease of generating queries with Sequel&amp;#8212;it just felt very &amp;#8216;Rubyish&amp;#8217; and my first guess was often correct: want all items with a price under 50?&lt;/p&gt;
+&lt;p&gt;[ruby]&lt;br /&gt;
+items.filter(:price &amp;lt; 50)&lt;br /&gt;
+[/ruby]&lt;/p&gt;
+&lt;p&gt;Items created within the last day?&lt;/p&gt;
+&lt;p&gt;[ruby]&lt;br /&gt;
+items.filter(:created_at &amp;gt;= 1.day.ago)&lt;br /&gt;
+[/ruby]&lt;/p&gt;
+&lt;p&gt;There was no :conditions hash to clutter things, no array of clauses and values, and no sql with some question marks interspersed throughout.&lt;/p&gt;
+&lt;p&gt;So today I take a look at the latest &lt;a href=&quot;http://railscasts.com/&quot;&gt;Railscast&lt;/a&gt; and not only does &lt;a href=&quot;http://twitter.com/rbates&quot;&gt;Ryan&lt;/a&gt; do a great job of showing some tips and tricks for queries in Rails 3, but he gives a mention to &lt;a href=&quot;http://github.com/ernie/meta_where&quot;&gt;meta_where&lt;/a&gt;. At first I thought &amp;#8220;looks nice but would I use it?&amp;#8221; After looking into it a bit more, the answer is easily &amp;#8220;hell yes&amp;#8221;.&lt;/p&gt;
+&lt;p&gt;Let&amp;#8217;s look at some code. The old way:&lt;/p&gt;
+&lt;p&gt;[ruby]&lt;br /&gt;
+scope :day_old, where([&amp;#8220;fetch_date &amp;gt; ?&amp;#8221;, (Time.now &amp;#8211; 1.day).to_i])&lt;br /&gt;
+[/ruby]&lt;/p&gt;
+&lt;p&gt;New way:&lt;/p&gt;
+&lt;p&gt;[ruby]&lt;br /&gt;
+scope :day_old, where(:fetch_date.gt =&amp;gt; 1.day.ago)&lt;/p&gt;
+&lt;ol&gt;
+	&lt;li&gt;or even&lt;br /&gt;
+scope :day_old, where(:fetch_date &amp;gt;= 1.day.ago)&lt;br /&gt;
+[/ruby]&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;That&amp;#8217;s about as clean and easy to write and then read later as you can get.&lt;/p&gt;
+&lt;p&gt;More examples:&lt;/p&gt;
+&lt;p&gt;[ruby]&lt;/p&gt;
+&lt;ol&gt;
+	&lt;li&gt;old&lt;br /&gt;
+articles.where([&amp;#8220;id not in (?)&amp;#8221;, article_ids])&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;#new&lt;br /&gt;
+articles.where(:id &amp;#8211; article_ids)&lt;br /&gt;
+[/ruby]&lt;/p&gt;
+&lt;p&gt;For those not wishing to use overloaded operators, you can still get a benefit from meta_where&lt;/p&gt;
+&lt;p&gt;[ruby]&lt;br /&gt;
+articles.where(:id.not_in =&amp;gt; article_ids)&lt;br /&gt;
+[/ruby]&lt;/p&gt;
+&lt;p&gt;You can read more about other options at the &lt;a href=&quot;http://metautonomo.us/projects/metawhere/&quot;&gt;project&amp;#8217;s home page&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;This post barely scratches the surface of what&amp;#8217;s possible, but hopefully it will peak some interest and get more eyeballs on a project that could be of great use to many of us. Also, a big thanks to &lt;a href=&quot;http://twitter.com/erniemiller&quot;&gt;@erniemiller&lt;/a&gt; for answering some questions today related to edge changes to meta_where, arel, and rails. Tip: the latest features might need edge versions of all three to work, so you might want to let them progress a bit more before jumping fully in and using everything available.&lt;/p&gt;</content>
+ </entry>
+ 
+ <entry>
+   <title>Rails 3: Generators</title>
+   <link href="http://jackdempsey.me/2010/03/31/hello-world.html"/>
+   <updated>2010-03-31T00:00:00-04:00</updated>
+   <id>http://jackdempsey.me/2010/03/31/hello-world</id>
+   <content type="html">&lt;p&gt;I&amp;#8217;ve been working on a variety of new ideas and projects recently, and find myself doing a lot of generating: models, scaffolds, migrations, and so on. After about the 10th &amp;#8220;generate a scaffold and delete all of the dirs/files I don&amp;#8217;t want&amp;#8221; I decided there must be a better way.&lt;/p&gt;
+&lt;p&gt;I&amp;#8217;ve been a fan of &lt;a href=&quot;http://github.com/wycats/thor&quot;&gt;Thor&lt;/a&gt; since the early days, and knew &lt;a href=&quot;http://github.com/josevalim&quot;&gt;Jose Valim&lt;/a&gt; had been busy working away on some cool new tech. So, without further ado, here&amp;#8217;s a sneak peek at what&amp;#8217;s in store for you in Rails 3.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Overriding Templates&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;I like using scaffolding to get quick ideas up and running. However, I&amp;#8217;ve really grown tired of the xml pieces in the controller scaffold, and wanted an efficient way of not using them. With the generators in Rails 3 it&amp;#8217;s easy!&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Creating Your Own &lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;With the variety of choices we have when creating Rails 3 apps, there will definitely be situations where you&amp;#8217;ll want to automate some of those choices. For me, I want to use Haml for views&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Customizing the Application Config&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;One new addition to Rails 3 that slipped past me til now is kind of hidden in config/application.rb:&lt;/p&gt;
+&lt;p&gt;[ruby]&lt;/p&gt;
+&lt;ol&gt;
+	&lt;li&gt;Configure generators values. Many other options are available, be sure to check the documentation.&lt;br /&gt;
+    config.generators do |g|&lt;br /&gt;
+      g.template_engine :haml&lt;br /&gt;
+      g.layout false&lt;br /&gt;
+      g.test_framework nil&lt;br /&gt;
+      g.stylesheets false&lt;br /&gt;
+    end&lt;br /&gt;
+[/ruby]&lt;/li&gt;
+&lt;/ol&gt;</content>
  </entry>
  
  

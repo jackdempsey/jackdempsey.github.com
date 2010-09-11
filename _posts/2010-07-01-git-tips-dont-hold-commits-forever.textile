@@ -1,0 +1,11 @@
+--- 
+wordpress_id: 119
+layout: post
+title: "Git tips: don't hold commits forever"
+wordpress_url: http://jackdempsey.me/?p=119
+---
+<em>This is one of several posts designed for those of you who've migrated from svn to git, but find your workflow and patterns to be very 'svn like'.</em> 
+
+If you're coming from an SVN background you're used to the 'push' aspect of transferring your commits being done for you...not so with git. What this creates sometimes is a situation where you've happily committed again and again, and haven't shared this with anyone. So then finally you make a huge push of 2 days of work and shocker, there's a conflict. It's so much easier to just make sure you're keeping other's up to date and being a good git citizen by pushing every so often.
+
+I'll generally push once a feature/topic is complete. Everyone working with me can count on that feature being ready to use, and if they have any issues we can catch it much earlier in the process. If it's going to be a branch that exists for a while, then I'll push that out when it's ready to first be viewed by others. Just be careful this doesn't lead to the original situation of you holding on to changes much longer than you should. 

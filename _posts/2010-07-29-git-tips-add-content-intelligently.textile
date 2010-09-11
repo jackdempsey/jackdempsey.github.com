@@ -1,0 +1,166 @@
+--- 
+wordpress_id: 111
+layout: post
+title: "Git tips: add content intelligently"
+wordpress_url: http://jackdempsey.me/?p=111
+---
+<em>This is one of several posts designed for those of you who've migrated from svn to git, but find your workflow and patterns to be very 'svn like'.</em> 
+
+This borders a bit more on the "being a good programmer" side of things, than something you have to do for technological reasons, but I believe in it and think you should too.
+
+Back in SVN land, what did you do when you've got a bunch of uncommitted files littering your project and you remember something random that also needs fixing.
+
+You open up that file and make the change.
+
+Then you sit there. You realize can't commit that file because it has a change that shouldn't go out just yet. What do you do?
+
+I've seen (and done) any of the following:
+<ul>
+	<li>commit it anyway. Everything will be ok (except when it's not)</li>
+	<li>keep it around until the feature you're working on is ready. You commit only to find someone else fixed it in a worse way, or maybe better way and got credit for it. But you thought of it first! Oh well, next time Gadget.</li>
+	<li>copy that file to your desktop. Undo the changes and make just the change you care about and commit. Copy the file from the desktop back into place. This should feel embarassing. If this is how you need to get around this situation with your VCS, it should be a sign that maybe you need something more powerful</li>
+</ul>
+
+For this situation the git answer is: git add -p
+
+From the man pages:
+[bash]
+-i, --interactive
+Add modified contents in the working tree interactively to the
+index. Optional path arguments may be supplied to limit operation
+to a subset of the working tree. See "Interactive mode" for
+details.
+
+-p, --patch
+Interactively choose hunks of patch between the index and the work
+tree and add them to the index. This gives the user a chance to
+review the difference before adding modified contents to the index.
+
+This effectively runs add --interactive, but bypasses the initial
+command menu and directly jumps to the patch subcommand. See
+"Interactive mode" for details.
+[/bash]
+
+I had used git for a many months before I heard about interactive add. It's really a wonderful option for those who care about keeping their commits to logical groupings of related content. What it means in practice is this: let's say you have a situation like so:
+
+[bash]
+diff --git a/file1 b/file1
+index 8124a24..467954e 100644
+--- a/file1
++++ b/file1
+@@ -1,3 +1,4 @@
++a new first line
+some lines of content here
+
+and some here
+@@ -6,3 +7,4 @@ and some here
+more again here
+
+and here
++and a new last line
+[/bash]
+
+One file, two changes. The first really needs to be added along with some other changes, while that last line change is something you need for the future, but have already done now so you don't forget. What do you do?
+
+[bash]
+~/git_svn_post new_feature > gap
+diff --git a/file1 b/file1
+index 8124a24..467954e 100644
+--- a/file1
++++ b/file1
+@@ -1,3 +1,4 @@
++a new first line
+some lines of content here
+
+and some here
+Stage this hunk [y,n,q,a,d,/,j,J,g,e,?]?
+[/bash]
+
+gap, as you could probably guess, is my alias for git add -p.
+
+So, you'll see some options "Stage this hunk..."
+
+You can now say "yes, I would like to add this to the staging area" by hitting y.
+[bash]
+Stage this hunk [y,n,q,a,d,/,j,J,g,e,?]? y
+@@ -6,3 +7,4 @@ and some here
+more again here
+
+and here
++and a new last line
+Stage this hunk [y,n,q,a,d,/,K,g,e,?]?
+[/bash]
+and now you can say "nope, not at this time" by hitting n for this change. Take a look at your status now:
+
+[bash]
+~/git_svn_post new_feature > gst
+# On branch new_feature
+# Changes to be committed:
+#   (use "git reset HEAD ..." to unstage)
+#
+#	modified:   file1
+#
+# Changed but not updated:
+#   (use "git add ..." to update what will be committed)
+#   (use "git checkout -- ..." to discard changes in working directory)
+#
+#	modified:   file1
+#
+~/git_svn_post new_feature >
+[/bash]
+
+The first time you see the above you might be a bit confused, but it's straightforward: there are some changes in file1 that are to be committed (they're in the index) and there are some changes that are just local (remember, the last line fix).
+
+This is how you add just a few pieces of a file and not others.
+
+What if the changes are close to each other in the file? Then use s for split:
+
+[bash]
+~/git_svn_post new_feature > gap
+diff --git a/file1 b/file1
+index 6360209..ec68580 100644
+--- a/file1
++++ b/file1
+@@ -7,8 +7,15 @@ some changes here
+and some here
+
+-and more here
++more changes here
++
++and here
++
+
++and here
++
++and more here
++and here
+more again here
+
+and here
+Stage this hunk [y,n,q,a,d,/,s,e,?]? s
+Split into 2 hunks.
+@@ -7,5 +7,8 @@
+and some here
+
+-and more here
++more changes here
++
++and here
++
+
+Stage this hunk [y,n,q,a,d,/,j,J,g,e,?]?
+[/bash]
+
+Sometimes you won't see the s when the change is several contiguous lines. In this case you can actually edit the diff to directly say what you want to get added. Bad ass. I'll go over this in a future post. 
+
+<h3>Why you should add things in small increments</h3>
+
+There are several reasons:
+<ol>
+	<li>Code of a feather belongs together: if you always keep code that is part of the same feature together in the same commit, this will save you (and others) so much time after the fact. No more hunting across mulitple commits to truly understand a change. One patch file is enough to try out a new feature. A caveat applies here in that, if you have a large feature, it can make sense to have multiple commits. But often, in developing that feature, certain subcomponents come to mind: I might commit all the model related changes, and then controller updates, and then views. Or maybe I'll do them all at once. The point is to think intelligently about what you are doing.</li>
+	<li>Having smaller more thought out commits also makes things like <code>git bisect</code> much easier to use. Think of this as continuous deployment except for your commit files. When changes are small, incremental, and all go together, your life as a debugger later on is that much better.</li>
+</ol>
+
+So, next time you have a bunch of changes spanning several features and you reach for <code>git commit -a</code> take a second to think if they truly belong in the same commit. 
+
+

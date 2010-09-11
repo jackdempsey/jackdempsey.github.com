@@ -1,0 +1,27 @@
+--- 
+wordpress_id: 27
+layout: post
+title: Some git aliases and tips
+wordpress_url: http://jackdempsey.me/?p=27
+---
+In preparation for a <a href="http://www.meetup.com/dcruby/calendar/13484724/">talk I gave</a> at DC RUG, I combed over my various git related customizations and realized a few might be worth mentioning here. 
+
+When I first started with git I was so focused on learning the tech, I didn't do much to make my life easier, and I realize now that was a mistake. So without further ado, here are some aliases I use frequently:
+
+<script src="http://gist.github.com/449478.js"></script>
+
+I've also included a script that I call out to from one of the aliases, so if you didn't know you could do that, check it out, it's pretty useful. Plus I just like telling my repo's to <strong>git onup</strong>. I'll probably create a "git toit" command at some point. 
+
+Anyway, the <strong>onup</strong> aliases uses the zsh script to take all local branches and rebase them against master. This saves a lot of typing if you have a few ideas floating around and continually make changes to master you need to bring into those branches. 
+
+I also use <strong>squish</strong> and <strong>squeeze</strong> a bit. The difference between the two is that <strong>squish</strong> takes all changes and "squishes" them into the last commit with the same commit message. <strong>queeze</strong> does the same, but only for content currently in the staging area. I find myself often making small/focused commits, and these are easy ways of slowly added related changes to those same commits quickly. 
+
+<strong>save</strong> is also useful: did you know that once you <strong>git stash</strong> content, it's saved for you inside git, even if you lose it from your current working directory? 
+
+So, this is useful in this situation: you're working on a bunch of files and have to leave for a bit. Rather than making a temporary commit that you have to then reset later, you can just say <strong> git save</strong> and it will stash then apply your content, leaving your working directory just as you wanted, but with the added protection that if somehow you say checkout a clean copy of the dir later, thereby deleting all of your hard work, you can still get it back. (I definitely did that once or twice, and that was the primary motivation behind this alias).
+
+<strong>pop</strong> is pretty self explanatory: don't like what the top commit does? pop it off and fix it up. Just remember: if you've already pushed that commit and then you try to rewrite your history, you're going to create trouble for yourself and others. 
+
+<strong>git wu</strong> or "git whatup" as I mentally remember it is an easy way of seeing what changes you have on your master that aren't on origin, or in simpler terms, what commits have you not pushed yet. 
+
+I think those are the interesting ones. I've cobbled these together from my own ideas and the ideas of others, so if you have any suggestions or some aliases you like using, please leave a note. 
