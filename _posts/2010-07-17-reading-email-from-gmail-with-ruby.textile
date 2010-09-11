@@ -24,3 +24,7 @@ HTH
 <strong>Update</strong>
 
 In doing a bit more searching I've come across the incredibly useful ruby-gmail library: <a href="http://github.com/dcparker/ruby-gmail">http://github.com/dcparker/ruby-gmail</a> If you're doing anything with ruby and Gmail, you have to look up this plugin. 
+
+<script type='text/javascript'>
+  var disqus_url = "http://jackdempsey.me/ruby/reading-email-from-gmail-with-ruby/";
+</script>

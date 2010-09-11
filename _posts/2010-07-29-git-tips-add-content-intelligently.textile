@@ -167,3 +167,6 @@ There are several reasons:
 So, next time you have a bunch of changes spanning several features and you reach for <code>git commit -a</code> take a second to think if they truly belong in the same commit. 
 
 
+<script type='text/javascript'>
+  var disqus_url = "http://jackdempsey.me/git/git-tips-add-content-intelligently/";
+</script>

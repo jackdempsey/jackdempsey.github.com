@@ -16,3 +16,7 @@ Here's why this is important and useful. Let's say you're working on master. You
 How about something similar: you're doing your work on master, committing as you go, and then hear that an important fix has been pushed to origin and that you should bring it down. Well, you think, I can easily just git pull --rebase right? Sure...except what if you had another branch that you HAD rebase against master in trying to keep things clean. Now you're in a bind: if you rebase master, the changes you brought into this other branch will mis-match: same content but different sha's, and you'll be stuck doing some sort of git cherry pick attempt at undoing things. Again, just because you didn't work on a local topic branch.
 
 This is not to say that you can't work on master. If it's a one file fix, go ahead! But if you think you're going to be working on it for even a little, do yourself a favor and type "git checkout -b practicing_good_habits" and get to it.
+
+<script type='text/javascript'>
+  var disqus_url = "http://jackdempsey.me/git/git-tips-work-on-local-branches/";
+</script>

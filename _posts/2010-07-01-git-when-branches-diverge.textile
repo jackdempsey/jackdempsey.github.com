@@ -171,3 +171,7 @@ gl = git log
 gst = git status
 gb = git branch
 gri = git rebase -i
+
+<script type='text/javascript'>
+  var disqus_url = "http://jackdempsey.me/git/git-when-branches-diverge/";
+</script>
