@@ -12,7 +12,7 @@ I did. So, I wrote the shortest hack that could work.
 
 Drop that in your .irbrc file and you're good to go. Here's how to use it:
 
-[ruby]
+{% highlight ruby %}
 
 projects/euraeka master ? > src
 Loading development environment (Rails 3.0.0.beta3)
@@ -34,7 +34,7 @@ ree-1.8.7-2010.01 > exit
 projects/euraeka master ? > cat ~/.remembered_commands
 cat: /Users/jack/.remembered_commands: No such file or directory
 projects/euraeka master ? > 
-[/ruby]
+{% endhighlight %}
 
 Notes: 
 src == script/rails console. I like to alias everything. 

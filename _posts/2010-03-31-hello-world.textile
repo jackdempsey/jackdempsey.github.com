@@ -20,7 +20,7 @@ With the variety of choices we have when creating Rails 3 apps, there will defin
 
 One new addition to Rails 3 that slipped past me til now is kind of hidden in config/application.rb:
 
-[ruby]
+{% highlight ruby %}
     # Configure generators values. Many other options are available, be sure to check the documentation.
     config.generators do |g|
       g.template_engine :haml
@@ -28,4 +28,4 @@ One new addition to Rails 3 that slipped past me til now is kind of hidden in co
       g.test_framework nil
       g.stylesheets false
     end
-[/ruby]
+{% endhighlight %}

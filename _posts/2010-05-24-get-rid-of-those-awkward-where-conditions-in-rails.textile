@@ -6,15 +6,15 @@ wordpress_url: http://jackdempsey.me/?p=17
 ---
 We originally developed <a href="http://euraeka.com">http://euraeka.com</a> in <a href="http://merbivore.com/">Merb</a>, <a href="http://sequel.rubyforge.org/documentation.html">Sequel</a>, and some other great Ruby tech. Recently though with <a href="http://weblog.rubyonrails.org/2010/4/13/rails-3-0-third-beta-release">Rails 3</a> on the horizon I've converted the stack and really like the end result. One thing I've missed though is the ease of generating queries with Sequel--it just felt very 'Rubyish' and my first guess was often correct: want all items with a price under 50?
 
-[ruby]
+{% highlight ruby %}
 items.filter(:price < 50)
-[/ruby]
+{% endhighlight %}
 
 Items created within the last day?
 
-[ruby]
+{% highlight ruby %}
 items.filter(:created_at >= 1.day.ago)
-[/ruby]
+{% endhighlight %}
 
 There was no :conditions hash to clutter things, no array of clauses and values, and no sql with some question marks interspersed throughout. 
 
@@ -22,35 +22,35 @@ So today I take a look at the latest <a href="http://railscasts.com/">Railscast<
 
 Let's look at some code. The old way:
 
-[ruby]
+{% highlight ruby %}
 scope :day_old, where(["fetch_date > ?", (Time.now - 1.day).to_i])
-[/ruby]
+{% endhighlight %}
 
 New way:
 
-[ruby]
+{% highlight ruby %}
 scope :day_old, where(:fetch_date.gt => 1.day.ago)
 # or even
 scope :day_old, where(:fetch_date >= 1.day.ago)
-[/ruby]
+{% endhighlight %}
 
 That's about as clean and easy to write and then read later as you can get. 
 
 More examples:
 
-[ruby]
+{% highlight ruby %}
 # old
 articles.where(["id not in (?)", article_ids])
 
 #new
 articles.where(:id - article_ids)
-[/ruby]
+{% endhighlight %}
 
 For those not wishing to use overloaded operators, you can still get a benefit from meta_where
 
-[ruby]
+{% highlight ruby %}
 articles.where(:id.not_in => article_ids)
-[/ruby]
+{% endhighlight %}
 
 You can read more about other options at the <a href="http://metautonomo.us/projects/metawhere/">project's home page</a>. 
 
