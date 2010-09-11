@@ -4,7 +4,7 @@
  <title>Jack Dempsey</title>
  <link href="http://jackdempsey.me/atom.xml" rel="self"/>
  <link href="http://jackdempsey.me/"/>
- <updated>2010-09-11T02:17:30-04:00</updated>
+ <updated>2010-09-11T02:46:00-04:00</updated>
  <id>http://jackdempsey.me/</id>
  <author>
    <name>Jack Dempsey</name>
@@ -30,112 +30,117 @@
 &lt;/ul&gt;
 &lt;p&gt;For this situation the git answer is: git add -p&lt;/p&gt;
 &lt;p&gt;From the man pages:&lt;br /&gt;
-[bash]&lt;br /&gt;
--i, &amp;#8212;interactive&lt;br /&gt;
-Add modified contents in the working tree interactively to the&lt;br /&gt;
-index. Optional path arguments may be supplied to limit operation&lt;br /&gt;
-to a subset of the working tree. See &amp;#8220;Interactive mode&amp;#8221; for&lt;br /&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;-i, --interactive
+Add modified contents in the working tree interactively to the
+index. Optional path arguments may be supplied to limit operation
+to a subset of the working tree. See &lt;span class=&quot;s2&quot;&gt;&amp;quot;Interactive mode&amp;quot;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;-i, --interactive
+Add modified contents in the working tree interactively to the
+index. Optional path arguments may be supplied to limit operation
+to a subset of the working tree. See &amp;lt;span class=&quot;s2&quot;&amp;gt;&amp;amp;quot;Interactive mode&amp;amp;quot;&amp;lt;/span&amp;gt; &amp;lt;span class=&quot;k&quot;&amp;gt;for&amp;lt;/span&amp;gt;
 details.&lt;/p&gt;
 &lt;p&gt;-p, &amp;#8212;patch&lt;br /&gt;
 Interactively choose hunks of patch between the index and the work&lt;br /&gt;
 tree and add them to the index. This gives the user a chance to&lt;br /&gt;
 review the difference before adding modified contents to the index.&lt;/p&gt;
 &lt;p&gt;This effectively runs add &amp;#8212;interactive, but bypasses the initial&lt;br /&gt;
-command menu and directly jumps to the patch subcommand. See&lt;br /&gt;
-&amp;#8220;Interactive mode&amp;#8221; for details.&lt;br /&gt;
-[/bash]&lt;/p&gt;
+&lt;span class=&quot;nb&quot;&gt;command &lt;/span&gt;menu and directly jumps to the patch subcommand. See&lt;br /&gt;
+&lt;span class=&quot;s2&quot;&gt;&amp;quot;Interactive mode&amp;quot;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;details.&lt;br /&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/p&gt;
+&lt;p&gt;&lt;/div&gt;&lt;/notextile&gt;&lt;/p&gt;
 &lt;p&gt;I had used git for a many months before I heard about interactive add. It&amp;#8217;s really a wonderful option for those who care about keeping their commits to logical groupings of related content. What it means in practice is this: let&amp;#8217;s say you have a situation like so:&lt;/p&gt;
-&lt;p&gt;[bash]&lt;br /&gt;
-diff &lt;del&gt;-git a/file1 b/file1&lt;br /&gt;
-index 8124a24..467954e 100644&lt;br /&gt;
--&lt;/del&gt;- a/file1&lt;br /&gt;
-&lt;ins&gt;+&lt;/ins&gt; b/file1&lt;br /&gt;
-&lt;code&gt;@ -1,3 +1,4 @&lt;/code&gt;&lt;br /&gt;
-+a new first line&lt;br /&gt;
-some lines of content here&lt;/p&gt;
-&lt;p&gt;and some here&lt;br /&gt;
-&lt;code&gt;@ -6,3 +7,4 @&lt;/code&gt; and some here&lt;br /&gt;
-more again here&lt;/p&gt;
-&lt;p&gt;and here&lt;br /&gt;
-+and a new last line&lt;br /&gt;
-[/bash]&lt;/p&gt;
-&lt;p&gt;One file, two changes. The first really needs to be added along with some other changes, while that last line change is something you need for the future, but have already done now so you don&amp;#8217;t forget. What do you do?&lt;/p&gt;
-&lt;p&gt;[bash]&lt;br /&gt;
-~/git_svn_post new_feature &amp;gt; gap&lt;br /&gt;
-diff &lt;del&gt;-git a/file1 b/file1&lt;br /&gt;
-index 8124a24..467954e 100644&lt;br /&gt;
--&lt;/del&gt;- a/file1&lt;br /&gt;
-&lt;ins&gt;+&lt;/ins&gt; b/file1&lt;br /&gt;
-&lt;code&gt;@ -1,3 +1,4 @&lt;/code&gt;&lt;br /&gt;
-+a new first line&lt;br /&gt;
-some lines of content here&lt;/p&gt;
-&lt;p&gt;and some here&lt;br /&gt;
-Stage this hunk [y,n,q,a,d,/,j,J,g,e,?]?&lt;br /&gt;
-[/bash]&lt;/p&gt;
-&lt;p&gt;gap, as you could probably guess, is my alias for git add -p.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;diff --git a/file1 b/file1
+index 8124a24..467954e 100644
+--- a/file1
++++ b/file1
+@@ -1,3 +1,4 @@
++a new first line
+some lines of content here
+
+and some here
+@@ -6,3 +7,4 @@ and some here
+more again here
+
+and here
++and a new last line
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;&lt;p&gt;One file, two changes. The first really needs to be added along with some other changes, while that last line change is something you need for the future, but have already done now so you don&amp;#8217;t forget. What do you do?&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;~/git_svn_post new_feature &amp;gt; gap
+diff --git a/file1 b/file1
+index 8124a24..467954e 100644
+--- a/file1
++++ b/file1
+@@ -1,3 +1,4 @@
++a new first line
+some lines of content here
+
+and some here
+Stage this hunk &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;y,n,q,a,d,/,j,J,g,e,?&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;?
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;&lt;p&gt;gap, as you could probably guess, is my alias for git add -p.&lt;/p&gt;
 &lt;p&gt;So, you&amp;#8217;ll see some options &amp;#8220;Stage this hunk&amp;#8230;&amp;#8221;&lt;/p&gt;
 &lt;p&gt;You can now say &amp;#8220;yes, I would like to add this to the staging area&amp;#8221; by hitting y.&lt;br /&gt;
-[bash]&lt;br /&gt;
-Stage this hunk [y,n,q,a,d,/,j,J,g,e,?]? y&lt;br /&gt;
-&lt;code&gt;@ -6,3 +7,4 @&lt;/code&gt; and some here&lt;br /&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;Stage this hunk &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;y,n,q,a,d,/,j,J,g,e,?&lt;span class=&quot;o&quot;&gt;]&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;Stage this hunk &amp;lt;span class=&quot;o&quot;&amp;gt;[&amp;lt;/span&amp;gt;y,n,q,a,d,/,j,J,g,e,?&amp;lt;span class=&quot;o&quot;&amp;gt;]&amp;lt;/span&amp;gt;? y
+@@ -6,3 +7,4 @@ and some here
 more again here&lt;/p&gt;
 &lt;p&gt;and here&lt;br /&gt;
 +and a new last line&lt;br /&gt;
-Stage this hunk [y,n,q,a,d,/,K,g,e,?]?&lt;br /&gt;
-[/bash]&lt;br /&gt;
+Stage this hunk &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;y,n,q,a,d,/,K,g,e,?&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;?&lt;br /&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/p&gt;
+&lt;p&gt;&lt;/div&gt;&lt;/notextile&gt;&lt;br /&gt;
 and now you can say &amp;#8220;nope, not at this time&amp;#8221; by hitting n for this change. Take a look at your status now:&lt;/p&gt;
-&lt;p&gt;[bash]&lt;br /&gt;
-~/git_svn_post new_feature &amp;gt; gst&lt;/p&gt;
-&lt;ol&gt;
-	&lt;li&gt;On branch new_feature&lt;/li&gt;
-	&lt;li&gt;Changes to be committed:&lt;/li&gt;
-	&lt;li&gt;(use &amp;#8220;git reset &lt;span class=&quot;caps&quot;&gt;HEAD&lt;/span&gt; &amp;#8230;&amp;#8221; to unstage)&lt;br /&gt;
-#&lt;br /&gt;
-#	modified:   file1&lt;br /&gt;
-#&lt;/li&gt;
-	&lt;li&gt;Changed but not updated:&lt;/li&gt;
-	&lt;li&gt;(use &amp;#8220;git add &amp;#8230;&amp;#8221; to update what will be committed)&lt;/li&gt;
-	&lt;li&gt;(use &amp;#8220;git checkout &amp;#8212; &amp;#8230;&amp;#8221; to discard changes in working directory)&lt;br /&gt;
-#&lt;br /&gt;
-#	modified:   file1&lt;br /&gt;
-#&lt;br /&gt;
-~/git_svn_post new_feature &amp;gt;&lt;br /&gt;
-[/bash]&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;The first time you see the above you might be a bit confused, but it&amp;#8217;s straightforward: there are some changes in file1 that are to be committed (they&amp;#8217;re in the index) and there are some changes that are just local (remember, the last line fix).&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;~/git_svn_post new_feature &amp;gt; gst
+&lt;span class=&quot;c&quot;&gt;# On branch new_feature&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# Changes to be committed:&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#   (use &amp;quot;git reset HEAD ...&amp;quot; to unstage)&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#	modified:   file1&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# Changed but not updated:&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#   (use &amp;quot;git add ...&amp;quot; to update what will be committed)&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#   (use &amp;quot;git checkout -- ...&amp;quot; to discard changes in working directory)&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#	modified:   file1&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#&lt;/span&gt;
+~/git_svn_post new_feature &amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;&lt;p&gt;The first time you see the above you might be a bit confused, but it&amp;#8217;s straightforward: there are some changes in file1 that are to be committed (they&amp;#8217;re in the index) and there are some changes that are just local (remember, the last line fix).&lt;/p&gt;
 &lt;p&gt;This is how you add just a few pieces of a file and not others.&lt;/p&gt;
 &lt;p&gt;What if the changes are close to each other in the file? Then use s for split:&lt;/p&gt;
-&lt;p&gt;[bash]&lt;br /&gt;
-~/git_svn_post new_feature &amp;gt; gap&lt;br /&gt;
-diff &lt;del&gt;-git a/file1 b/file1&lt;br /&gt;
-index 6360209..ec68580 100644&lt;br /&gt;
--&lt;/del&gt;- a/file1&lt;br /&gt;
-&lt;ins&gt;+&lt;/ins&gt; b/file1&lt;br /&gt;
-&lt;code&gt;@ -7,8 +7,15 @&lt;/code&gt; some changes here&lt;br /&gt;
-and some here&lt;/p&gt;
-&lt;p&gt;-and more here&lt;br /&gt;
-+more changes here&lt;br /&gt;
-+&lt;br /&gt;
-+and here&lt;br /&gt;
-+&lt;/p&gt;
-&lt;p&gt;+and here&lt;br /&gt;
-+&lt;br /&gt;
-+and more here&lt;br /&gt;
-+and here&lt;br /&gt;
-more again here&lt;/p&gt;
-&lt;p&gt;and here&lt;br /&gt;
-Stage this hunk [y,n,q,a,d,/,s,e,?]? s&lt;br /&gt;
-Split into 2 hunks.&lt;br /&gt;
-&lt;code&gt;@ -7,5 +7,8 @&lt;/code&gt;&lt;br /&gt;
-and some here&lt;/p&gt;
-&lt;p&gt;-and more here&lt;br /&gt;
-+more changes here&lt;br /&gt;
-+&lt;br /&gt;
-+and here&lt;br /&gt;
-+&lt;/p&gt;
-&lt;p&gt;Stage this hunk [y,n,q,a,d,/,j,J,g,e,?]?&lt;br /&gt;
-[/bash]&lt;/p&gt;
-&lt;p&gt;Sometimes you won&amp;#8217;t see the s when the change is several contiguous lines. In this case you can actually edit the diff to directly say what you want to get added. Bad ass. I&amp;#8217;ll go over this in a future post.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;~/git_svn_post new_feature &amp;gt; gap
+diff --git a/file1 b/file1
+index 6360209..ec68580 100644
+--- a/file1
++++ b/file1
+@@ -7,8 +7,15 @@ some changes here
+and some here
+
+-and more here
++more changes here
++
++and here
++
+
++and here
++
++and more here
++and here
+more again here
+
+and here
+Stage this hunk &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;y,n,q,a,d,/,s,e,?&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;? s
+Split into 2 hunks.
+@@ -7,5 +7,8 @@
+and some here
+
+-and more here
++more changes here
++
++and here
++
+
+Stage this hunk &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;y,n,q,a,d,/,j,J,g,e,?&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;?
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;&lt;p&gt;Sometimes you won&amp;#8217;t see the s when the change is several contiguous lines. In this case you can actually edit the diff to directly say what you want to get added. Bad ass. I&amp;#8217;ll go over this in a future post.&lt;/p&gt;
 &lt;h3&gt;Why you should add things in small increments&lt;/h3&gt;
 &lt;p&gt;There are several reasons:&lt;br /&gt;
 &lt;ol&gt;&lt;br /&gt;
@@ -166,120 +171,104 @@ and some here&lt;/p&gt;
    <updated>2010-07-01T00:00:00-04:00</updated>
    <id>http://jackdempsey.me/2010/07/01/git-when-branches-diverge</id>
    <content type="html">&lt;p&gt;While committing to an app from a couple different computers, my repos got out of sync:&lt;/p&gt;
-&lt;p&gt;[bash]&lt;br /&gt;
-~/example_app ads &amp;gt; gco master&lt;br /&gt;
-Switched to branch &amp;#8216;master&amp;#8217;&lt;br /&gt;
-Your branch and &amp;#8216;origin/master&amp;#8217; have diverged,&lt;br /&gt;
-and have 2 and 7 different commit(s) each, respectively.&lt;br /&gt;
-[/bash]&lt;/p&gt;
-&lt;p&gt;So, to figure out what this means, here are a couple tips. First, you can use the cherry command to &lt;br /&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;~/example_app ads &amp;gt; gco master
+Switched to branch &lt;span class=&quot;s1&quot;&gt;&amp;#39;master&amp;#39;&lt;/span&gt;
+Your branch and &lt;span class=&quot;s1&quot;&gt;&amp;#39;origin/master&amp;#39;&lt;/span&gt; have diverged,
+and have 2 and 7 different commit&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;s&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; each, respectively.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;&lt;p&gt;So, to figure out what this means, here are a couple tips. First, you can use the cherry command to &lt;br /&gt;
 see what commits differ between branches, and in what ways. So in this case, running &amp;#8216;g cherry origin/master&amp;#8217; shows us the status of commits on the &lt;br /&gt;
 current branch and how they stack up against origin/master. So:&lt;/p&gt;
-&lt;p&gt;[bash]&lt;br /&gt;
-~/example_app master &amp;gt; g cherry origin/master&lt;br /&gt;
-+ 7584c09a5c0ea68c29f4724788e9f38b119cd6ec&lt;br /&gt;
-+ f3a766e6dd7c08be07c6300b005af2674a96e74c&lt;br /&gt;
-[/bash]&lt;/p&gt;
-&lt;p&gt;That mean&amp;#8217;s that those two commits don&amp;#8217;t exist on origin/master, they need to be added (hence the +). This explains the &amp;#8220;2&amp;#8221; part of &lt;br /&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;~/example_app master &amp;gt; g cherry origin/master
++ 7584c09a5c0ea68c29f4724788e9f38b119cd6ec
++ f3a766e6dd7c08be07c6300b005af2674a96e74c
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;&lt;p&gt;That mean&amp;#8217;s that those two commits don&amp;#8217;t exist on origin/master, they need to be added (hence the +). This explains the &amp;#8220;2&amp;#8221; part of &lt;br /&gt;
 the &amp;#8220;2 and 7 different commits&amp;#8221; message we saw.&lt;/p&gt;
 &lt;p&gt;Now, let&amp;#8217;s see what&amp;#8217;s going on with origin/master and its commits. For this we can run a log command with a special format:&lt;/p&gt;
-&lt;p&gt;[bash]&lt;br /&gt;
-~/example_app master &amp;gt; gl ..origin/master &amp;#8212;oneline&lt;br /&gt;
-7d6b4b8 fix staging db config&lt;br /&gt;
-4d96719 Adding links to the bottom of all pages and cleaning up active tab text colors for all themes except for 4 and 1&lt;br /&gt;
-66e69ea Merge branch &amp;#8216;master&amp;#8217; of github.com:example_appwedding/example_app into themes&lt;br /&gt;
-ec35a04 Hot fix&lt;br /&gt;
-95959fb Merge branch &amp;#8216;master&amp;#8217; of github.com:example_appwedding/example_app into themes&lt;br /&gt;
-019d5dc committing fixes to haml update&lt;br /&gt;
-01095dc random&lt;br /&gt;
-[/bash]&lt;/p&gt;
-&lt;p&gt;Here we see 7 commits there that don&amp;#8217;t exist on our current branch.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;~/example_app master &amp;gt; gl ..origin/master --oneline
+7d6b4b8 fix staging db config
+4d96719 Adding links to the bottom of all pages and cleaning up active tab text colors &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;all themes except &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;4 and 1
+66e69ea Merge branch &lt;span class=&quot;s1&quot;&gt;&amp;#39;master&amp;#39;&lt;/span&gt; of github.com:example_appwedding/example_app into themes
+ec35a04 Hot fix
+95959fb Merge branch &lt;span class=&quot;s1&quot;&gt;&amp;#39;master&amp;#39;&lt;/span&gt; of github.com:example_appwedding/example_app into themes
+019d5dc committing fixes to haml update
+01095dc random
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;&lt;p&gt;Here we see 7 commits there that don&amp;#8217;t exist on our current branch.&lt;/p&gt;
 &lt;p&gt;So now we have a good idea of what&amp;#8217;s happened. I&amp;#8217;ve made two commits on my local master branch, and it looks like there are 7 commits on origin/master&lt;br /&gt;
 I don&amp;#8217;t have merged in yet. So, I could just blindly merge things together and go on my way (if they merge without conflict), but I&amp;#8217;d like to show you&lt;br /&gt;
 how to deal with it in a more controlled manner.&lt;/p&gt;
 &lt;p&gt;First, create a branch that points to your current &lt;span class=&quot;caps&quot;&gt;HEAD&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;[bash]&lt;br /&gt;
-~/example_app master &amp;gt; gco -b local_changes&lt;br /&gt;
-Switched to a new branch &amp;#8216;local_changes&amp;#8217;&lt;br /&gt;
-[/bash]&lt;/p&gt;
-&lt;p&gt;Now that we have that to keep track of those changes, we switch back to master:&lt;/p&gt;
-&lt;p&gt;[bash]&lt;br /&gt;
-~/example_app local_changes &amp;gt; gco master&lt;br /&gt;
-Switched to branch &amp;#8216;master&amp;#8217;&lt;br /&gt;
-Your branch and &amp;#8216;origin/master&amp;#8217; have diverged,&lt;br /&gt;
-and have 2 and 7 different commit(s) each, respectively.&lt;br /&gt;
-[/bash]&lt;/p&gt;
-&lt;p&gt;At this point, reset the master branch to get rid of the 2 commits. To do this you want to go to the third commit back, or &lt;span class=&quot;caps&quot;&gt;HEAD&lt;/span&gt;^^&lt;/p&gt;
-&lt;p&gt;[bash]&lt;br /&gt;
-~/example_app master &amp;gt; g reset &amp;#8212;hard &lt;span class=&quot;caps&quot;&gt;HEAD&lt;/span&gt;^^&lt;br /&gt;
-&lt;span class=&quot;caps&quot;&gt;HEAD&lt;/span&gt; is now at f2fe0d4 get satisfaction js update from alex&lt;br /&gt;
-[/bash]&lt;/p&gt;
-&lt;p&gt;Now let&amp;#8217;s see what our status looks like&lt;/p&gt;
-&lt;p&gt;[bash]&lt;br /&gt;
-~/example_app master &amp;gt; gst&lt;/p&gt;
-&lt;ol&gt;
-	&lt;li&gt;On branch master&lt;/li&gt;
-	&lt;li&gt;Your branch is behind &amp;#8216;origin/master&amp;#8217; by 7 commits, and can be fast-forwarded.&lt;br /&gt;
-#&lt;br /&gt;
-nothing to commit (working directory clean)&lt;br /&gt;
-~/example_app master &amp;gt; &lt;br /&gt;
-[/bash]&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;There we go! We can now easily merge origin/master in and then handle merging in local_changes if it still makes sense.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;~/example_app master &amp;gt; gco -b local_changes
+Switched to a new branch &lt;span class=&quot;s1&quot;&gt;&amp;#39;local_changes&amp;#39;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;&lt;p&gt;Now that we have that to keep track of those changes, we switch back to master:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;~/example_app local_changes &amp;gt; gco master
+Switched to branch &lt;span class=&quot;s1&quot;&gt;&amp;#39;master&amp;#39;&lt;/span&gt;
+Your branch and &lt;span class=&quot;s1&quot;&gt;&amp;#39;origin/master&amp;#39;&lt;/span&gt; have diverged,
+and have 2 and 7 different commit&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;s&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; each, respectively.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;&lt;p&gt;At this point, reset the master branch to get rid of the 2 commits. To do this you want to go to the third commit back, or &lt;span class=&quot;caps&quot;&gt;HEAD&lt;/span&gt;^^&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;~/example_app master &amp;gt; g reset --hard HEAD^^
+HEAD is now at f2fe0d4 get satisfaction js update from alex
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;&lt;p&gt;Now let&amp;#8217;s see what our status looks like&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;~/example_app master &amp;gt; gst
+&lt;span class=&quot;c&quot;&gt;# On branch master&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# Your branch is behind &amp;#39;origin/master&amp;#39; by 7 commits, and can be fast-forwarded.&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#&lt;/span&gt;
+nothing to commit &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;working directory clean&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+~/example_app master &amp;gt; 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;&lt;p&gt;There we go! We can now easily merge origin/master in and then handle merging in local_changes if it still makes sense.&lt;/p&gt;
 &lt;p&gt;This could easily be the end of this post. However, in the actual situation that prompted this point, things weren&amp;#8217;t quite this simple. &lt;br /&gt;
 I actually had other branches that had already been rebased against master and it created a situation like this:&lt;/p&gt;
-&lt;p&gt;[bash]&lt;br /&gt;
-&lt;snip&gt;&lt;br /&gt;
- +    [delete_account] put in beginnings of delete account&lt;br /&gt;
-&lt;ins&gt;+* + [local_changes] don&amp;#8217;t show get tab in dev mode&lt;br /&gt;
-+&lt;/ins&gt;* + [local_changes^] slot in same check for a blank field to remain blank&lt;br /&gt;
-++*++ [local_changes~2] js update &lt;br /&gt;
-[/bash]&lt;/p&gt;
-&lt;p&gt;So I had removed this changes from my master branch, but they still existed in other branches. Because I know they&amp;#8217;re contained&lt;br /&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&amp;lt;snip&amp;gt;
+ +    &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;delete_account&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; put in beginnings of delete account
+++* + &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;local_changes&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; don&lt;span class=&quot;err&quot;&gt;&amp;#39;&lt;/span&gt;t show get tab in dev mode
+++* + &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;local_changes^&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; slot in same check &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;a blank field to remain blank
+++*++ &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;local_changes~2&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; js update 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;&lt;p&gt;So I had removed this changes from my master branch, but they still existed in other branches. Because I know they&amp;#8217;re contained&lt;br /&gt;
 in local_changes, I can remove them from the other branches (and those other branches haven&amp;#8217;t been pushed anywhere).&lt;/p&gt;
 &lt;p&gt;I dug around a bit more and realized that those sames changes were already in another branch that &lt;span class=&quot;caps&quot;&gt;HAD&lt;/span&gt; been pushed to origin. So, I can remove them from other branches that have them and haven&amp;#8217;t been pushed.&lt;/p&gt;
 &lt;p&gt;First I delete local_changes:&lt;/p&gt;
-&lt;p&gt;[bash]&lt;br /&gt;
-~/example_app master&amp;gt; gb -D local_changes&lt;br /&gt;
-[/bash]&lt;/p&gt;
-&lt;p&gt;I have more work to do. Those commits still exist in other branches:&lt;/p&gt;
-&lt;p&gt;[bash]&lt;br /&gt;
-  &lt;strong&gt;+ [master~5] random&lt;br /&gt;
- +   [delete_account] put in beginnings of delete account&lt;br /&gt;
-&lt;ins&gt;+ + [ads~8] don&amp;#8217;t show get tab in dev mode&lt;br /&gt;
-+&lt;/ins&gt; + [ads~9] slot in same check for a blank field to remain blank&lt;br /&gt;
-++&lt;/strong&gt;+ [ads~10] js update&lt;br /&gt;
-[/bash]&lt;/p&gt;
-&lt;p&gt;So I can check out the ads branch and remove those two commits:&lt;/p&gt;
-&lt;p&gt;[bash]&lt;br /&gt;
-~/example_app master &amp;gt; gco ads&lt;br /&gt;
-Switched to branch &amp;#8216;ads&amp;#8217;&lt;br /&gt;
-~/example_app ads &amp;gt; gri head~10&lt;br /&gt;
-Successfully rebased and updated refs/heads/ads.&lt;br /&gt;
-~/example_app ads &amp;gt; gsb&lt;br /&gt;
-[/bash]&lt;/p&gt;
-&lt;p&gt;Explained:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;~/example_app master&amp;gt; gb -D local_changes
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;&lt;p&gt;I have more work to do. Those commits still exist in other branches:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;  *+ &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;master~5&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; random
+ +   &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;delete_account&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; put in beginnings of delete account
+++ + &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;ads~8&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; don&lt;span class=&quot;err&quot;&gt;&amp;#39;&lt;/span&gt;t show get tab in dev mode
+++ + &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;ads~9&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; slot in same check &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;a blank field to remain blank
+++*+ &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;ads~10&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; js update
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;&lt;p&gt;So I can check out the ads branch and remove those two commits:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;~/example_app master &amp;gt; gco ads
+Switched to branch &lt;span class=&quot;s1&quot;&gt;&amp;#39;ads&amp;#39;&lt;/span&gt;
+~/example_app ads &amp;gt; gri head~10
+Successfully rebased and updated refs/heads/ads.
+~/example_app ads &amp;gt; gsb
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;&lt;p&gt;Explained:&lt;/p&gt;
 &lt;p&gt;1. git checkout the ads branch&lt;br /&gt;
 3. git rebase &lt;del&gt;i head~10 -&lt;/del&gt; This lets me interactively rewrite the history. If you delete a line in an interactive rebase, it&amp;#8217;s gone from your history&lt;br /&gt;
 (which is why it&amp;#8217;s really important to &lt;span class=&quot;caps&quot;&gt;NOT&lt;/span&gt; do this if you&amp;#8217;ve pushed that commit elsewhere). &lt;br /&gt;
 At this point I removed those two commits and am good. &lt;br /&gt;
 5. I did a quick git show-branch to see how everything looked.&lt;/p&gt;
 &lt;p&gt;I&amp;#8217;ll do the same thing with the delete_account branch, and now let&amp;#8217;s take a look at my repo:&lt;/p&gt;
-&lt;p&gt;[bash]&lt;br /&gt;
-~/example_app ads &amp;gt; gsb&lt;/p&gt;
-&lt;ul&gt;
-	&lt;li&gt;[ads] refactor left rail calls&lt;br /&gt;
- ! [delete_account] put in beginnings of delete account&lt;br /&gt;
-  ! [master] fix staging db config&lt;br /&gt;
-   ! [theme_branch] add in colors&lt;br /&gt;
-&lt;del&gt;-&lt;/del&gt;-&lt;/li&gt;
-	&lt;li&gt;[ads~7] refactor left rail calls &lt;br /&gt;
- +   [delete_account] put in beginnings of delete account&lt;br /&gt;
-   + &lt;snip&gt;&lt;br /&gt;
-*+++ [master] fix staging db config&lt;br /&gt;
-[/bash]&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Everything&amp;#8217;s looking good. The various branches have only their important commits to differentiate them, nothing&amp;#8217;s confusing. I&amp;#8217;m ready to go.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;~/example_app ads &amp;gt; gsb
+* &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;ads&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; refactor left rail calls
+ ! &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;delete_account&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; put in beginnings of delete account
+  ! &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;master&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; fix staging db config
+   ! &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;theme_branch&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; add in colors
+----
+*    &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;ads~7&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; refactor left rail calls 
+ +   &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;delete_account&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; put in beginnings of delete account
+   + &amp;lt;snip&amp;gt;
+*+++ &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;master&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; fix staging db config
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;&lt;p&gt;Everything&amp;#8217;s looking good. The various branches have only their important commits to differentiate them, nothing&amp;#8217;s confusing. I&amp;#8217;m ready to go.&lt;/p&gt;
 &lt;p&gt;This may seem like a lot of work but in practice it&amp;#8217;s quick and very useful in my experience. I&amp;#8217;m convinced part of the reason people get confused&lt;br /&gt;
 with git is that they don&amp;#8217;t take proper care of their repositories and branches.&lt;/p&gt;
 &lt;p&gt;Note: often you can just merge things and git will do a lot of the heavy lifting and thinking for you. But if you only ever just merge blindly, you&amp;#8217;re going to confuse yourself, your commit history, and not really know what&amp;#8217;s going on. It&amp;#8217;s often worth spending a little bit of time to think about what you&amp;#8217;re doing. This sort of exercise should also help you deal with situations where a simple merge will not suffice.&lt;/p&gt;

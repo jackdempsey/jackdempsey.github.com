@@ -6,29 +6,29 @@ wordpress_url: http://jackdempsey.me/?p=81
 ---
 While committing to an app from a couple different computers, my repos got out of sync:
 
-[bash]
+{% highlight bash %}
 ~/example_app ads > gco master
 Switched to branch 'master'
 Your branch and 'origin/master' have diverged,
 and have 2 and 7 different commit(s) each, respectively.
-[/bash]
+{% endhighlight %}
 
 So, to figure out what this means, here are a couple tips. First, you can use the cherry command to 
 see what commits differ between branches, and in what ways. So in this case, running 'g cherry origin/master' shows us the status of commits on the 
 current branch and how they stack up against origin/master. So:
 
-[bash]
+{% highlight bash %}
 ~/example_app master > g cherry origin/master
 + 7584c09a5c0ea68c29f4724788e9f38b119cd6ec
 + f3a766e6dd7c08be07c6300b005af2674a96e74c
-[/bash]
+{% endhighlight %}
 
 That mean's that those two commits don't exist on origin/master, they need to be added (hence the +). This explains the "2" part of 
 the "2 and 7 different commits" message we saw.
 
 Now, let's see what's going on with origin/master and its commits. For this we can run a log command with a special format:
 
-[bash]
+{% highlight bash %}
 ~/example_app master > gl ..origin/master --oneline
 7d6b4b8 fix staging db config
 4d96719 Adding links to the bottom of all pages and cleaning up active tab text colors for all themes except for 4 and 1
@@ -37,7 +37,7 @@ ec35a04 Hot fix
 95959fb Merge branch 'master' of github.com:example_appwedding/example_app into themes
 019d5dc committing fixes to haml update
 01095dc random
-[/bash]
+{% endhighlight %}
 
 Here we see 7 commits there that don't exist on our current branch. 
 
@@ -47,37 +47,37 @@ how to deal with it in a more controlled manner.
 
 First, create a branch that points to your current HEAD
 
-[bash]
+{% highlight bash %}
 ~/example_app master > gco -b local_changes
 Switched to a new branch 'local_changes'
-[/bash]
+{% endhighlight %}
 
 Now that we have that to keep track of those changes, we switch back to master:
 
-[bash]
+{% highlight bash %}
 ~/example_app local_changes > gco master
 Switched to branch 'master'
 Your branch and 'origin/master' have diverged,
 and have 2 and 7 different commit(s) each, respectively.
-[/bash]
+{% endhighlight %}
 
 At this point, reset the master branch to get rid of the 2 commits. To do this you want to go to the third commit back, or HEAD^^
 
-[bash]
+{% highlight bash %}
 ~/example_app master > g reset --hard HEAD^^
 HEAD is now at f2fe0d4 get satisfaction js update from alex
-[/bash]
+{% endhighlight %}
 
 Now let's see what our status looks like
 
-[bash]
+{% highlight bash %}
 ~/example_app master > gst
 # On branch master
 # Your branch is behind 'origin/master' by 7 commits, and can be fast-forwarded.
 #
 nothing to commit (working directory clean)
 ~/example_app master > 
-[/bash]
+{% endhighlight %}
 
 There we go! We can now easily merge origin/master in and then handle merging in local_changes if it still makes sense. 
 
@@ -85,13 +85,13 @@ There we go! We can now easily merge origin/master in and then handle merging in
 This could easily be the end of this post. However, in the actual situation that prompted this point, things weren't quite this simple. 
 I actually had other branches that had already been rebased against master and it created a situation like this:
 
-[bash]
+{% highlight bash %}
 <snip>
  +    [delete_account] put in beginnings of delete account
 ++* + [local_changes] don't show get tab in dev mode
 ++* + [local_changes^] slot in same check for a blank field to remain blank
 ++*++ [local_changes~2] js update 
-[/bash]
+{% endhighlight %}
 
 So I had removed this changes from my master branch, but they still existed in other branches. Because I know they're contained
 in local_changes, I can remove them from the other branches (and those other branches haven't been pushed anywhere).
@@ -100,29 +100,29 @@ I dug around a bit more and realized that those sames changes were already in an
 
 First I delete local_changes:
 
-[bash]
+{% highlight bash %}
 ~/example_app master> gb -D local_changes
-[/bash]
+{% endhighlight %}
 
 I have more work to do. Those commits still exist in other branches:
 
-[bash]
+{% highlight bash %}
   *+ [master~5] random
  +   [delete_account] put in beginnings of delete account
 ++ + [ads~8] don't show get tab in dev mode
 ++ + [ads~9] slot in same check for a blank field to remain blank
 ++*+ [ads~10] js update
-[/bash]
+{% endhighlight %}
 
 So I can check out the ads branch and remove those two commits:
 
-[bash]
+{% highlight bash %}
 ~/example_app master > gco ads
 Switched to branch 'ads'
 ~/example_app ads > gri head~10
 Successfully rebased and updated refs/heads/ads.
 ~/example_app ads > gsb
-[/bash]
+{% endhighlight %}
 
 Explained:
 
@@ -135,7 +135,7 @@ At this point I removed those two commits and am good.
 
 I'll do the same thing with the delete_account branch, and now let's take a look at my repo:
 
-[bash]
+{% highlight bash %}
 ~/example_app ads > gsb
 * [ads] refactor left rail calls
  ! [delete_account] put in beginnings of delete account
@@ -146,7 +146,7 @@ I'll do the same thing with the delete_account branch, and now let's take a look
  +   [delete_account] put in beginnings of delete account
    + <snip>
 *+++ [master] fix staging db config
-[/bash]
+{% endhighlight %}
 
 
 Everything's looking good. The various branches have only their important commits to differentiate them, nothing's confusing. I'm ready to go. 
