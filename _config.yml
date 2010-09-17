@@ -1,2 +1,4 @@
 pygments: true
-excludes: %w(README.textile)
+exclude:
+- Rakefile
+- README.textile
