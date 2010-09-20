@@ -1,0 +1,53 @@
+--- 
+layout: post
+title: "Contributing to Open Source"
+tags:
+- open_source
+---
+
+h1. {{ page.title }}
+
+I recently fixed a small bug in Thor as a result of "this question from Ajsie.":http://github.com/wycats/thor/issues/issue/67
+
+After I pushed the fix Asjie sent me this (included with permission):
+
+{% highlight html %}
+Hi Jack!
+
+I am the one that issued the "true/false yes?" bug that you fixed.
+I am new to ruby. Worked with it for 3 months.
+I have a question about how to fix a bug.
+I have installed the Thor gem with "gem install thor".
+So when I find a bug and want to look at the source code and fix it in place 
+then push it up to GitHub, how do I do that?
+Should I run:
+    git clone http://github.com/wycats/thor.git
+then fix the bug in that one? But isn't my system using the gem Thor? And what 
+are the commands that I should use for Git and how do I tell the author to do 
+a pull request? Could you tell me how/which one you patch and how to push it 
+and make a pull request?
+I would really love to contribute myself instead of 
+asking for bug fixes in the future.
+Thanks.
+
+/Ajsie
+{% endhighlight %}
+
+I realized that this would be a perfect opportunity to take Matt Might's second tip and "Reply To Public":http://matt.might.net/articles/how-to-blog-as-an-academic/
+
+I've been involved with Open Source Software for about as long as I've been in tech. My first steps into the world of the web were through HTML and Javascript. I progressed towards a LAMP stack that serviced me well for years, to finally end up in the world of Ruby & Rails.
+
+Anyway, my point is that it's been a long 15 years or so, and I've sort of forgotten some things along the way. I guess it's probably more that they've become so engrained that they're not forgotten, just a part of me that I don't think of at all--my third arm, Open Source. In many ways it's more important than the other two, and yet couldn't exist without them. 
+
+I realized though with Ajsie's email that there are others on the same sort of journey, but further on up the road. So I'm taking some time to write out a couple of thoughts on the topic, and will intersperse them with real world examples where helpful. 
+
+To keep my already rambling style bearable, I'm breaking them up into several posts as follows:
+
+# Welcome to Open Source. Now what?
+# How to get involved
+# Contributing via GitHub
+# Tip & Suggestions
+# Final thoughts
+
+
+I hope this will be helpful to others just starting their journey, as well as those who've been around a bit, but still have something to learn. I've seen some negative behavior over the last couple weeks by people who should know better, so hopefully those of you will stay tuned as well. 
