@@ -1,0 +1,24 @@
+--- 
+layout: post
+title: "Getting Tir Working via Vagrant"
+---
+
+h1. {{ page.title }}
+
+I've been peeking at "Mongrel 2":http://mongrel2.org for some time now, and just haven't had a chance to do much with it. Recently "Zed Shaw":http://zedshaw.com/ released "Tir":http://tir.mongrel2.org, a state agnostic web microframework. I decided today would be the day I kick this damn cold and finally tinker with it.
+
+As "Zed replied":http://twitter.com/zedshaw/status/12599187937955840 to a gist of my aborted install attempt, there are some luaposix issues on OS X, so I decided to use this as an excuse to try out "Vagrant":http://www.engineyard.com/blog/2010/virtualize-this-instant-rails-in-a-virtual-box/. The process was straightforward and within a few minutes I was staring at a rails app in Ubuntu while using Chrome in OS X. Very cool. 
+
+Back to Tir: installation on the Ubuntu VM was pretty straightforward, but there are a couple tips that might save you some time:
+
+* Install a few tools ahead of time: sudo apt-get install curl unzip git-core
+* "Install Mongrel 2":http://mongrel2.org/wiki?name=GettingStarted 
+** if you see this "error while loading shared libraries: libzmq.so.0: cannot open shared object file: No such file or directory" run "ldconfig -v" as root
+* Install Lua 5.1
+** sudo apt-get install lua5.1
+* "Install Luarocks":http://luarocks.org/en/Installation_instructions_for_Unix from "here":http://luarocks.org/releases/luarocks-2.0.tar.gz
+** specify the location of lua.h: ./configure --with-lua-include=/usr/include/lua5.1
+
+After that the rest of the Tir installation instructions went through perfectly and I was left with a working installation of Tir, using Mongrel 2, on a Ubuntu box inside a VM managed by Vagrant. Thoughts of Inception float through my head. 
+
+If you haven't checked it out, it's definitely worth doing so for both the experience with Lua as well as to take a peek at what could very well become the next movement in web framework design. The various experimentations (many small processes, natural, stateless, and evented handlers, backend agnostic app connections) are all interesting and in my opinion, very forward thinking. I believe some of the ideas have already inspired changes in other frameworks like "Node.js":http://nodejs.org/, and I'd guess that's only the beginning. 
