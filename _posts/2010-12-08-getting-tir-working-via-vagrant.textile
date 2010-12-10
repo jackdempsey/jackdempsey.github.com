@@ -22,3 +22,7 @@ Back to Tir: installation on the Ubuntu VM was pretty straightforward, but there
 After that the rest of the "Tir installation":http://tir.mongrel2.org/wiki?name=Install went through perfectly and I was left with a working installation of Tir, using Mongrel 2, on a Ubuntu box inside a VM managed by Vagrant. Thoughts of Inception float through my head. 
 
 If you haven't checked it out, it's definitely worth doing so for both the experience with Lua as well as to take a peek at what could very well become the next movement in web framework design. The various experimentations (many small processes, natural, stateless, and evented handlers, backend agnostic app connections) are all interesting and in my opinion, very forward thinking. I believe some of the ideas have already inspired changes in other frameworks like "Node.js":http://nodejs.org/, and I'd guess that's only the beginning. 
+
+h3. Update
+
+Zed's updated Tir to now work out of the box with OS X. Follow the normal instructions directly on your own command line and you should be good to go!
