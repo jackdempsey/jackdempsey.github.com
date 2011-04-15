@@ -5,7 +5,7 @@ title: "Slow Rails Bootups and Fixing RVM REE SSL Install Bug"
 
 h1. {{ page.title }}
 
-h2. Slow Rails Bootup
+h2. Not Going Anywhere for a While?
 
 "15...16...17...there we go."
 
