@@ -1,0 +1,48 @@
+--- 
+layout: post
+title: "Slow Rails Bootups and Fixing RVM REE SSL Install Bug"
+---
+
+h1. {{ page.title }}
+
+h2. Slow Rails Bootup
+
+"15...16...17...there we go."
+
+If you've found yourself counting the boot time for your fresh new Rails 3 / 1.9 app, and have approached the 
+"OMFG really" point of 17 seconds or so, take heart, you are not alone. Alastair Brunton wrote up a nice piece 
+"Rails 3 Benchmarks Startup Time":http://scoop.simplyexcited.co.uk/2011/03/14/rails-3-benchmarks-startup-time/ which delves into the main issues here. 
+
+If you just want the fix, the answer for now is REE, which brought my boot time from 17 seconds to about 4 or so. Much more reasonaable. 
+
+h2. RVM REE Install Problems with Certs
+
+Only problem is that I couldn't get RVM to install ree correctly. I was running RVM 1.5.3 and thought "upgrading to the latest
+usually fixes it" but this sadly didn't work either, as a result of an MD5 checksum error. 
+
+Yay. Off to shave some Yaks.
+
+So, I downloaded the "RVM install script":https://rvm.beginrescueend.com/install/rvm (which didn't work when accessed via curl),
+manually ran it with 'bash < rvm', and finally had RVM 1.6.2 installed. 
+
+Pop back to REE. I tried a bunch of Cert related Curl fixes and finally said "fuck it, I'll do it live!!":http://www.youtube.com/watch?v=2tJjNVVwRCY
+
+h2. Doing it live
+
+Take a look at your ~/.rvm/scripts/fetch file. Add --insecure to the two fetch commands like so:
+
+{% highlight bash %}
+elif [[ ! -z ${rvm_proxy} ]] ; then
+
+  fetch_command="curl --insecure -x${rvm_proxy} -L --create-dirs -C - " # -s for silent
+
+else
+
+  fetch_command="curl --insecure -L --create-dirs -C - " # -s for silent
+
+fi
+{% endhighlight %}
+
+The usual comments of knowing what you're doing by adding --insecure apply here. This is just a dirty way of getting shit done.
+
+Hope this helps.
