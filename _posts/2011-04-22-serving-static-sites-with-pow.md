@@ -7,10 +7,10 @@ title: "Hosting a Static Site with Pow"
 
 I'm a big fan of [pow](http://pow.cx) and [jekyll](http://jekyllrb.com/) and thought it'd be interesting to host the local copy of my blog with pow. Here's a simple way to do it.
 
-Pow deals exclusively with rack apps. So, create a config.ru in the directory for your blog that looks like this:
-{% highlight ruby %}
-run lambda {|env| [200, {}, ['']}
-{% endhighlight %}
+<strike>Pow deals exclusively with rack apps. So, create a config.ru in the directory for your blog that looks like this:</strike>
+
+**Update:** Sam just let me know that rackup file isn't needed:
+  *"Pow automatically serves static files in the public directory of your application. It's possible to serve a completely static site without a config.ru file as long as it has a public directory."*
 
 Create a public dir which contains your blogs content. In my case this meant symlinking \_site to public:
 {% highlight bash %}
