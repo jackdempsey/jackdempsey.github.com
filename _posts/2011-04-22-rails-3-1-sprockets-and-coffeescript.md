@@ -129,7 +129,7 @@ Using these techs is as easy as naming your files appropriately. One file I didn
 
 The leading initialize. is just my own convention to clarify what the file is doing. It's quite simple:
 
-{% highlight coffeescript %}
+{% highlight javascript %}
 example_app rails31 > cat app/assets/javascripts/initialize.token-input.js.coffee 
 $ -> $('#friends').tokenInput '/friends.json', crossDomain: false
 {% endhighlight %}
