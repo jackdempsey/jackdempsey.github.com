@@ -18,18 +18,16 @@ Let's start with some simple changes. We now have two locations for our styleshe
 The same way you used to put external lib code into ``vendor/plugins`` you can now put those externally required css files into ``vendor/assets/stylesheets``. For example, I'm using the [jquery-tokeninput](http://loopj.com/jquery-tokeninput) project, 
 and have put the tokeninput css files into the vendor dir:
 
-{% highlight bash %}
-projects/example_app rails31 > ls -l vendor/assets/stylesheets/token-input
-total 32
--rw-r--r--  1 jack  staff   2.5K Apr 21 23:46 token-input-facebook.css
--rw-r--r--  1 jack  staff   4.6K Apr 21 23:46 token-input-mac.css
--rw-r--r--  1 jack  staff   2.0K Apr 21 23:46 token-input.css
-{% endhighlight %}
+    example_app rails31 > ls -l vendor/assets/stylesheets/token-input
+    total 32
+    -rw-r--r--  1 jack  staff   2.5K Apr 21 23:46 token-input-facebook.css
+    -rw-r--r--  1 jack  staff   4.6K Apr 21 23:46 token-input-mac.css
+    -rw-r--r--  1 jack  staff   2.0K Apr 21 23:46 token-input.css
 
 You then tell sprockets to require these files in your main application.css:
 
-{% highlight bash %}
-projects/example_app rails31 > cat app/assets/stylesheets/application.css 
+{% highlight css %}
+example_app rails31 > cat app/assets/stylesheets/application.css 
 /*
  * FIXME: Introduce SCSS & Sprockets
  *= require "style" 
@@ -41,20 +39,18 @@ The require_tree bit seems ugly. Hopefully I've done something stupid and there'
 
 You'll also see ``require "style"`` in that file as well. That file exists in the main ``app/assets/stylesheets`` directory:
 
-{% highlight bash %}
-projects/example_app rails31 > ls -l app/assets/stylesheets
-total 16
--rw-r--r--   1 jack  staff   128B Apr 22 10:20 application.css
--rw-r--r--   1 jack  staff   1.8K Apr 21 23:46 style.css.scss
-{% endhighlight %}
+    example_app rails31 > ls -l app/assets/stylesheets
+    total 16
+    -rw-r--r--   1 jack  staff   128B Apr 22 10:20 application.css
+    -rw-r--r--   1 jack  staff   1.8K Apr 21 23:46 style.css.scss
 
 Sprockets will load that file and convert it into css and package it up, so when your browser requests ``/assets/application.css``, 
 you'll get one file which contains the style.css content, as well as token-input.
 
 To include the stylesheet in your app, you can use the stylesheet_link_tag helper, which is now sprocket aware:
 
-{% highlight ruby %}
-projects/example_app rails31 > cat app/views/layouts/application.html.haml 
+{% highlight haml %}
+example_app rails31 > cat app/views/layouts/application.html.haml 
 !!! 5
 %html
   %head
@@ -88,13 +84,11 @@ Javascripts
 The same ideas hold true for the javascript side. When you generate a new Rails 3.1 app, jquery is a default, and you'll see it in the
 ``vendor/assets/javascripts`` directory:
 
-{% highlight bash %}
-projects/example_app rails31 > ls -l vendor/assets/javascripts
-total 480
--rw-r--r--  1 jack  staff   207K Apr 21 21:31 jquery.js
--rw-r--r--  1 jack  staff    22K Apr 21 23:46 jquery.tokeninput.js
--rw-r--r--  1 jack  staff   4.4K Apr 21 21:31 jquery_ujs.js
-{% endhighlight %}
+    example_app rails31 > ls -l vendor/assets/javascripts
+    total 480
+    -rw-r--r--  1 jack  staff   207K Apr 21 21:31 jquery.js
+    -rw-r--r--  1 jack  staff    22K Apr 21 23:46 jquery.tokeninput.js
+    -rw-r--r--  1 jack  staff   4.4K Apr 21 21:31 jquery_ujs.js
 
 You get jquery 1.5 at this point, though I imagine that will change soon as 1.6 is right around the corner. 
 
@@ -102,8 +96,8 @@ You'll also see jquery_ujs. This file is the new rails.js. Finally, you'll see m
 
 To use these files, setup a ``app/assets/javascripts/application.js`` like so:
 
-{% highlight bash %}
-projects/example_app rails31 > cat app/assets/javascripts/application.js 
+{% highlight javascript %}
+example_app rails31 > cat app/assets/javascripts/application.js 
 // FIXME: Tell people that this is a manifest file, 
 // real code should go into discrete files
 // FIXME: Tell people how Sprockets and CoffeeScript works
@@ -128,12 +122,10 @@ CoffeeScript & SCSS
 
 Using these techs is as easy as naming your files appropriately. One file I didn't expressly call out in my application.js file is the initializing file for the token input code:
 
-{% highlight bash %}
-projects/example_app rails31 > ls -l app/assets/javascripts 
-total 24
--rw-r--r--  1 jack  staff   245B Apr 21 23:46 application.js
--rw-r--r--  1 jack  staff    66B Apr 21 23:46 initialize.token-input.js.coffee
-{% endhighlight %}
+    example_app rails31 > ls -l app/assets/javascripts 
+    total 24
+    -rw-r--r--  1 jack  staff   245B Apr 21 23:46 application.js
+    -rw-r--r--  1 jack  staff    66B Apr 21 23:46 initialize.token-input.js.coffee
 
 The leading initialize. is just my own convention to clarify what the file is doing. It's quite simple:
 
