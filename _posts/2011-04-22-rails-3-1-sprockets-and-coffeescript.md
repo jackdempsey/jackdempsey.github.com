@@ -151,3 +151,7 @@ I always find it hard to learn a topic, then forget that knowledge when writing 
 or there are other bits that confuse you, please drop a comment. One thing I didn't go into here was the new app/assets/images directory. Maybe in 
 a future post.
 
+Update
+------
+
+Hopefully the above was helpful. If you're looking for a "real" app to take a try at, check out this example I made with Rails 3.1, Node.js, CoffeeScript, and Socket.IO: [Edgeside Chat](https://github.com/jackdempsey/edgeside_chat)
