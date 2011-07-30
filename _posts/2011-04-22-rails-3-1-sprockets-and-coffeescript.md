@@ -94,6 +94,14 @@ You get jquery 1.5 at this point, though I imagine that will change soon as 1.6 
 
 You'll also see jquery_ujs. This file is the new rails.js. Finally, you'll see my jquery.tokeninput.js as well. 
 
+### Update
+
+This has changed with new versions of Rails. The javascript files are no
+longer copied into your application, but served out of the
+``vendor/assets/javascripts`` directory in the jquery-rails gem. See 
+https://github.com/rails/jquery-rails/tree/master/vendor/assets/javascripts
+for info.
+
 To use these files, setup a ``app/assets/javascripts/application.js`` like so:
 
 {% highlight javascript %}
