@@ -16,7 +16,7 @@ layout: default
 title: Postings tagged "#{category}"
 ---
     <h1 id="#{category}">Postings tagged "#{category}"</h1>
-
+HTML
     html << '<ul class="posts">'
     posts.each do |post|
       post_data = post.to_liquid
